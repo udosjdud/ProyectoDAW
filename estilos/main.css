@@ -1,1 +1,19 @@
+body{
+    background-image: url("https://cdn.prod.website-files.com/6768f29a6d5da42209173f20/6768f29b6d5da42209177574_Rectangle%20(28).svg");
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    background-position: center; 
+}
 
+.custom-fs{
+    font-size: 45px;
+}
+
+.presentacion{
+    background-color: #EDF9FF;
+}
+
+.tarjeta_presentacion{
+    transition: 0.3s;
+}
