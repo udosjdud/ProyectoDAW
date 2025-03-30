@@ -49,7 +49,7 @@
                         prioridades y nunca más olvides lo importante.</p>
                     <div class="d-flex gap-2">
                         <input type="mail" class="form-control w-50"
-                            placeholder="Pon tu correo, !Es gratis registrarse¡">
+                            placeholder="Pon tu correo, ¡Es gratis registrarse!">
                         <button class="btn btn-info">Registrar</button>
                     </div>
                 </div>

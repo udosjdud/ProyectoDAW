@@ -26,7 +26,7 @@
                 <label for="password" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="password" name="password" required>
               </div>
-              <button type="submit" class="btn btn-warning w-100">Iniciar Sesión</button>
+              <button type="submit" class="btn btn-warning w-100" name="iniciarSesion">Iniciar Sesión</button>
             </form>
           </div>
         </div>

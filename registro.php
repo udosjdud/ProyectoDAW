@@ -17,20 +17,25 @@
           </div>
           <div class="card-body">
             <!-- Formulario de registro -->
-            <form action="registro_process.php" method="POST">
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-              </div>
+            <form action="validar_usuario.php" method="POST">
               <div class="mb-3">
                 <label for="correo" class="form-label">Correo Electrónico</label>
                 <input type="email" class="form-control" id="correo" name="correo" required>
               </div>
               <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
               </div>
-              <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+              
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <!--Al menos una letra minúscula, al menos una letra mayúscula, al menos un digito, al menos un caracter especial y mínimo 8 caracteres de longitud -->
+                <input type="password" class="form-control" id="password" name="password" 
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+                title="La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una letra minúscula, un número y un carácter especial."
+                required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100" name="registro">Registrarse</button>
             </form>
           </div>
           <div class="card-footer text-center">
