@@ -37,7 +37,7 @@
                     header("Location: login.php?mensaje=error");
                 }
             } else {
-                echo("El correo no es válido. Debe contener un @ y acabar en .com o .es")
+                echo("El correo no es válido. Debe contener un @ y acabar en .com o .es");
             }
         }catch(Trowable $t){
             echo("<p>Error: " . $t->getMesssage() . "</p>");

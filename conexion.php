@@ -1,6 +1,6 @@
 <?php
-    $servidor = "localhost"
+    $servidor = "localhost";
     $usuario = "root";
     $password = "";
-    $bbdd = ""
+    $bbdd = "";
 ?>
