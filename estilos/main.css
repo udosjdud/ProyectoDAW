@@ -26,3 +26,69 @@ body{
     width: 100%;
     object-fit: cover;
 }
+
+/* pagina_principal.php */
+body .principal{
+    background-color: #212529; /* Fondo oscuro */
+    color: #f8f9fa; /* Texto claro */
+}
+body .principal .sidebar {
+    background-color: #343a40;
+    height: 100vh;
+    padding: 20px;
+}
+body .principal .sidebar h5 {
+    color: #f8f9fa;
+}
+body .principal .sidebar a {
+    color: #adb5bd;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+body .principal .sidebar a:hover {
+    color: #f8f9fa;
+}
+ .tablero {
+    background-color: #495057;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: #f8f9fa;
+}
+body .principal .tablero h5 {
+    font-weight: bold;
+}
+body .principal .tarjeta {
+    background-color: #6c757d;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #f8f9fa;
+}
+body .principal .tarjeta:hover {
+    background-color: #5a6268;
+}
+body .principal .add-card {
+    color: #17a2b8;
+    cursor: pointer;
+}
+body .principal .add-card:hover {
+    text-decoration: underline;
+}
+body .principal .header {
+    background-color: #343a40;
+    padding: 10px 20px;
+    color: #f8f9fa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+body .principal .header .btn {
+    background-color: #17a2b8;
+    color: #f8f9fa;
+}
+body .principal .header .btn:hover {
+    background-color: #138496;
+}    

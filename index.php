@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Inicio</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
@@ -28,10 +28,13 @@
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Iniciar Sesion</a>
+                            <a class="nav-link" href="login.php">Iniciar Sesion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Registrar</a>
+                            <a class="nav-link" href="registro.php">Registrarse</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pagina_principal.php">tableros</a>
                         </li>
                     </ul>
                 </div>
@@ -71,7 +74,7 @@
                     </p>
                     
                     <div class="row mt-4">
-                        <div class="col-3 row gap-3">
+                        <div class="col-md-3 col-sm-6 col-xs-12 row gap-3">
                             <div class="tarjeta_presentacion card bg-transparent shadow-lg p-3" data-img="https://kinsta.com/es/wp-content/uploads/sites/8/2020/10/tipos-de-archivos-de-imagen.png">
                                 <h3 class="card-title">Gestión de Tareas</h3>
                                 <p class="card-text">Organiza tus tareas de manera eficiente con nuestro sistema de gestión. 
