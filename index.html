@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="estilos/main.css">
+    <script src="scripts/index.js" defer></script>
 </head>
 
 <body>
@@ -57,7 +58,7 @@
             </div>
         </div>
 
-        <div class="container-fluid mt-5 presentacion">
+        <div class="container-fluid mt-5 pb-5 presentacion">
             <div class="container pt-5">
                 <h2 class="text-center mb-">Un epicentro de productividad</h2>
                 <div>
@@ -66,95 +67,145 @@
                         visualizar claramente quién hace qué y cuáles son las tareas
                         por completar. Consulta nuestra guía de inicio para más detalles.
                     </p>
-                    
-                    <div class="row mt-4">
-                        <div class="col-3 row gap-3">
-                            <div class="tarjeta_presentacion card bg-transparent shadow-lg p-3" data-img="https://kinsta.com/es/wp-content/uploads/sites/8/2020/10/tipos-de-archivos-de-imagen.png">
+
+
+                    <div class="row mt-4 conte_pricipal">
+
+                        <!-- Para pantallas pequeñas -->
+                        <div id="carouselTarjetas" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="tarjeta_presentacion card bg-transparent border-0 p-3"
+                                        data-img="https://kinsta.com/es/wp-content/uploads/sites/8/2020/10/tipos-de-archivos-de-imagen.png">
+                                        <h3 class="card-title">Gestión de Tareas</h3>
+                                        <p class="card-text">Organiza tus tareas de manera eficiente con nuestro sistema
+                                            de gestión.
+                                            Crea, asigna y da seguimiento a las tareas de tu equipo. Establece fechas
+                                            límite y
+                                            prioridades para mantener todo bajo control.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="tarjeta_presentacion card bg-transparent border-0 p-3"
+                                        data-img="https://vilmanunez.com/wp-content/uploads/2016/05/listado-banco-de-imagenes-vectores-gratis.png">
+                                        <h3 class="card-title">Colaboración en Tiempo Real</h3>
+                                        <p class="card-text">Trabaja junto a tu equipo en tiempo real. Comenta en las
+                                            tareas,
+                                            comparte archivos y mantén a todos actualizados sobre el progreso del
+                                            proyecto. La
+                                            comunicación efectiva es clave para el éxito.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="tarjeta_presentacion card bg-transparent border-0 p-3"
+                                        data-img="https://wellaggio.com/wp-content/uploads/2015/10/como-conseguir-ima%CC%81genes-gratis-para-tu-web.jpg">
+                                        <h3 class="card-title">Seguimiento de Proyectos</h3>
+                                        <p class="card-text">Visualiza el progreso de tus proyectos con tableros
+                                            personalizables.
+                                            Obtén informes detallados y métricas que te ayudarán a tomar mejores
+                                            decisiones y
+                                            optimizar tu flujo de trabajo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselTarjetas"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon bg-dark rounded-circle"
+                                    aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselTarjetas"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon bg-dark rounded-circle"
+                                    aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                        <!-- Para pantallas grandes -->
+                        <div class="col-3 row gap-3 contenedor_presentacion_normal">
+                            <div class="tarjeta_presentacion card bg-transparent shadow-lg p-3"
+                                data-img="https://kinsta.com/es/wp-content/uploads/sites/8/2020/10/tipos-de-archivos-de-imagen.png">
                                 <h3 class="card-title">Gestión de Tareas</h3>
-                                <p class="card-text">Organiza tus tareas de manera eficiente con nuestro sistema de gestión. 
-                                    Crea, asigna y da seguimiento a las tareas de tu equipo. Establece fechas límite y 
+                                <p class="card-text">Organiza tus tareas de manera eficiente con nuestro sistema
+                                    de gestión.
+                                    Crea, asigna y da seguimiento a las tareas de tu equipo. Establece fechas
+                                    límite y
                                     prioridades para mantener todo bajo control.
                                 </p>
                             </div>
-                            <div class="tarjeta_presentacion card bg-transparent border-0 p-3" data-img="https://vilmanunez.com/wp-content/uploads/2016/05/listado-banco-de-imagenes-vectores-gratis.png">
+                            <div class="tarjeta_presentacion card bg-transparent border-0 p-3"
+                                data-img="https://vilmanunez.com/wp-content/uploads/2016/05/listado-banco-de-imagenes-vectores-gratis.png">
                                 <h3 class="card-title">Colaboración en Tiempo Real</h3>
-                                <p class="card-text">Trabaja junto a tu equipo en tiempo real. Comenta en las tareas, 
-                                    comparte archivos y mantén a todos actualizados sobre el progreso del proyecto. La 
+                                <p class="card-text">Trabaja junto a tu equipo en tiempo real. Comenta en las
+                                    tareas,
+                                    comparte archivos y mantén a todos actualizados sobre el progreso del
+                                    proyecto. La
                                     comunicación efectiva es clave para el éxito.
                                 </p>
                             </div>
-                            <div class="tarjeta_presentacion card bg-transparent border-0 p-3" data-img="https://wellaggio.com/wp-content/uploads/2015/10/como-conseguir-ima%CC%81genes-gratis-para-tu-web.jpg">
+                            <div class="tarjeta_presentacion card bg-transparent border-0 p-3"
+                                data-img="https://wellaggio.com/wp-content/uploads/2015/10/como-conseguir-ima%CC%81genes-gratis-para-tu-web.jpg">
                                 <h3 class="card-title">Seguimiento de Proyectos</h3>
-                                <p class="card-text">Visualiza el progreso de tus proyectos con tableros personalizables. 
-                                    Obtén informes detallados y métricas que te ayudarán a tomar mejores decisiones y 
+                                <p class="card-text">Visualiza el progreso de tus proyectos con tableros
+                                    personalizables.
+                                    Obtén informes detallados y métricas que te ayudarán a tomar mejores
+                                    decisiones y
                                     optimizar tu flujo de trabajo.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="col-9 ps-5">
-                            <h2 class="mb-4">Características Principales</h2>
+                        <div class="col-9 ps-5 contenedor_carac">
+                            <h2 class="mb-4 carac-h2">Características Principales</h2>
                             <div class="caracteristicas">
-                                <div class="contenedor_texto">
-
-                                </div>
-                                <div class="contenedor_imagen_presentacion mt-4">
-                     
-                                </div>
+                                <div class="contenedor_texto"></div>
+                                <div class="contenedor_imagen_presentacion mt-4"></div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer>
-
-    </footer>
-
-    <script>
-        // Funcion para rellenar el contenido
-        function rellanarContenido(card) {
-            var title = $(card).find(".card-title").text();
-            var content = $(card).find(".card-text").text();
-            var img = $(card).attr("data-img");
-
-            $(".contenedor_texto").html(`
-                <div class="p-4">
-                    <h4 class="mb-3">${title}</h4>
-                    <p class="fs-5">${content}</p>
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5 class="mb-3">MyProyecto</h5>
+                    <p class="mb-0">Tu herramienta perfecta para gestionar tareas y proyectos de manera eficiente.</p>
                 </div>
-            `);
-
-            $(".contenedor_imagen_presentacion").html(`
-                <img src="${img}" class="img-fluid rounded shadow-sm imagen_presentacion""> 
-            `);
-        }
-
-        // Cargar contenido al cargar la pagina
-        $(document).ready(function() {
-            var carta = $(".tarjeta_presentacion.shadow-lg");
-            rellanarContenido(carta);
-        });
-
-        // Manejo de eventos de las tarjetas
-        $(".tarjeta_presentacion").on("click", function (e) {
-            Array.from($(".tarjeta_presentacion")).forEach(x => {
-                if ($(x).hasClass("shadow-lg")) {
-                    $(x).removeClass("shadow-lg")
-                    $(x).addClass("border-0")
-                }
-            })
-
-            var clickedCard = e.target.closest(".tarjeta_presentacion");
-            console.log(clickedCard);
-            clickedCard.classList.toggle("shadow-lg")
-            clickedCard.classList.toggle("border-0")
-
-            rellanarContenido(clickedCard);
-        })
-    </script>
+                <div class="col-md-4 mb-3">
+                    <h5 class="mb-3">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Inicio</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Características</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Precios</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: info@myproyecto.com</li>
+                        <li>Teléfono: +34 123 456 789</li>
+                        <li>Dirección: Calle Principal 123</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2024 MyProyecto. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 

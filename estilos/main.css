@@ -1,28 +1,62 @@
-body{
+body {
     background-image: url("https://cdn.prod.website-files.com/6768f29a6d5da42209173f20/6768f29b6d5da42209177574_Rectangle%20(28).svg");
     background-size: cover;
-    background-repeat: no-repeat; 
-    background-attachment: fixed; 
-    background-position: center; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
 }
 
-.custom-fs{
+.custom-fs {
     font-size: 45px;
 }
 
 
 /* MAIN, todo el contenido del index*/
 
-.presentacion{
+.presentacion {
     background-color: #EDF9FF;
 }
 
-.tarjeta_presentacion{
+.tarjeta_presentacion {
     transition: 0.6s;
 }
 
-.imagen_presentacion{
+.imagen_presentacion {
     max-height: 400px;
     width: 100%;
     object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.imagen_presentacion.fade-in {
+    opacity: 1;
+}
+
+.imagen_presentacion.fade-out {
+    opacity: 0;
+}
+
+.carousel {
+    display: none;
+}
+
+/* Media querys */
+
+@media screen and (max-width: 998px) {
+
+    .carousel {
+        display: block;
+    }
+
+    .contenedor_presentacion_normal,
+    .carac-h2,
+    .contenedor_texto {
+        display: none;
+    }
+
+    .contenedor_carac {
+        width: 100%;
+        display: flex;
+    }
 }
