@@ -10,6 +10,14 @@ body {
     font-size: 45px;
 }
 
+.contenedor_nav{
+    position: relative;
+}
+
+.logo{
+    position: absolute;
+    top: 0;
+}
 
 /* MAIN, todo el contenido del index*/
 
@@ -58,5 +66,11 @@ body {
     .contenedor_carac {
         width: 100%;
         display: flex;
+    }
+
+    .contenedor_ham {
+        width: 100%;
+        display: flex;
+        justify-content: end;
     }
 }
