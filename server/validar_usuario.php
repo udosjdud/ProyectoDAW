@@ -68,7 +68,7 @@ if (isset($_POST['inicioSesion'])) {
                 $_SESSION['usuario'] = $_POST['usuario'];
                 $_SESSION['logueado'] = true;
                 $_SESSION['hora'] = time();
-                header("Location: pagina_prinicipal.php");
+                header("Location: pagina_principal.php");
             } else {
                 header("Location: login.php?mensaje=error");
             }
