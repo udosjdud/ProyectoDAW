@@ -2,5 +2,5 @@
     $servidor = "localhost";
     $usuario = "root";
     $password = "";
-    $bbdd = "";
+    $bbdd = "proyecto_daw";
 ?>
