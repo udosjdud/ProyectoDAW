@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (error) {
         var message = '';
         switch (error) {
+            case 'invalid_credentials':
+                message = 'Credenciales inválidas';
+                break;
             case 'passwords_dont_match':
                 message = 'Las contraseñas no coinciden';
                 break;
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 message = 'Error del servidor: ' + urlParams.get('message');
                 break;
             default:
-                message = 'Ha ocurrido un error durante el registro';
+                message = 'Ha ocurrido un error';
         }
 
         messageContainer.innerHTML = `

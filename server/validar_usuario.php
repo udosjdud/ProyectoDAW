@@ -23,9 +23,15 @@ if (isset($_POST['registro'])) {
                         $passw = $_POST['password'];
 
                         $consulta = "INSERT INTO usuarios (nombre, correo, passw) VALUES ('$nombre', '$correo', AES_ENCRYPT('$passw', 'almandrullos'))";
+                        //$consulta = "INSERT INTO usuarios (nombre, correo, passw) VALUES ('$nombre', '$correo', '$passw')";
                         
                         if(mysqli_query($conexion, $consulta)) {
-                            header("Location: ../paginas/espacio_trabajo.html");
+                            session_start();
+                            $_SESSION['usuario'] = $_POST['nombre'];
+                            $_SESSION['correo'] = $_POST['correo'];
+                            $_SESSION['logueado'] = true;
+                            $_SESSION['hora'] = time();
+                            header("Location: ../paginas/aplicacion/espacio_trabajo.php");
                         } else {
                             header("Location: ../paginas/registro.html?error=insert_error");
                         }
@@ -49,34 +55,37 @@ if (isset($_POST['registro'])) {
 }
 
 
-if (isset($_POST['inicioSesion'])) {
+if (isset($_POST['iniciarSesion'])) {
     try {
-
+        require('../server/conexion.php');
         $email = $_POST['correo'];
         if (filter_var($email, FILTER_VALIDATE_EMAIL) && (str_ends_with($email, '.com') || str_ends_with($email, '.es'))) {
-            // El correo es válido
+
             $conexion = mysqli_connect($servidor, $usuario, $password, $bbdd);
             mysqli_query($conexion, "SET NAMES 'UTF8'");
 
-            $user = mysqli_real_escape_string($conexion, $_POST['correo']);
+            $correo = mysqli_real_escape_string($conexion, $_POST['correo']);
             $pass = mysqli_real_escape_string($conexion, $_POST['password']);
 
-            $consulta = "SELECT * FROM usuarios WHERE user='$user' AND AES_DECRYPT(pass, 'almandrullos')='$pass'";
+            $consulta = "SELECT * FROM usuarios WHERE correo='$correo' AND CAST(AES_DECRYPT(passw, 'almandrullos') AS CHAR) = '$pass'";
             $resultado = mysqli_query($conexion, $consulta);
 
             if (mysqli_num_rows($resultado) == 1) {
-                $_SESSION['usuario'] = $_POST['usuario'];
+                $fila = mysqli_fetch_array($resultado);
+                session_start();
+                $_SESSION['nombre'] = $fila['nombre'];
+                $_SESSION['correo'] = $_POST['correo'];
                 $_SESSION['logueado'] = true;
                 $_SESSION['hora'] = time();
-                header("Location: pagina_prinicipal.php");
+                header("Location:../paginas/aplicacion/espacio_trabajo.php");
             } else {
-                header("Location: login.php?mensaje=error");
+                header("Location: ../paginas/login.html?error=invalid_credentials");
             }
         } else {
-            echo ("El correo no es válido. Debe contener un @ y acabar en .com o .es");
+            header("Location: ../paginas/login.html?error=invalid_email");
         }
-    } catch (Trowable $t) {
-        echo ("<p>Error: " . $t->getMesssage() . "</p>");
+    } catch (Throwable $t) {
+        header("Location: ../paginas/registro.html?error=server_error&message=" . urlencode($t->getMessage()));
     }
 }
 ?>
