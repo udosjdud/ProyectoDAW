@@ -11,7 +11,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel='stylesheet' type='text/css' media='screen' href='../../estilos/espacio_trabajo.css'>
-    <script src='../../scripts/espacio_trabajo.js'></script>
 </head>
 
 <body>
@@ -40,21 +39,39 @@
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    class="d-flex align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <button class="btn btn-primary d-md-none btn-ham" type="button" data-bs-toggle="collapse"
                         data-bs-target="#sidebar">
                         <i class="bi bi-list"></i>
                     </button>
-                    <h1 class="h2">Espacio de trabajo</h1>
+                    <div class="titulo-h1 d-flex justify-content-center">
+                        <h1 class="h2 text-light">Espacio de trabajo</h1>
+                    </div>
                 </div>
 
                 <div class="content-area">
                     <!-- Content will be loaded here -->
                     <p>Selecciona una opción del menú para comenzar.</p>
                 </div>
+
+                <div class="user-area">
+                    <div class="content-user">
+                        <div class="setting-area">
+                            <div class="setting-list">
+                                <button id="" class="btn-setting btn btn-link text-decoration-none"><i class="bi bi-gear"></i> Configuración</button>
+                                <button id="btn-cerrar-sesion" class="btn-setting btn btn-link text-decoration-none"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
+
+    <?php
+        require_once("common/footer.php");
+    ?>
 </body>
+<script src='../../scripts/espacio_trabajo.js'></script>
 
 </html>
