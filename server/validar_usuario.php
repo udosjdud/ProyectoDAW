@@ -73,7 +73,7 @@ if (isset($_POST['iniciarSesion'])) {
             if (mysqli_num_rows($resultado) == 1) {
                 $fila = mysqli_fetch_array($resultado);
                 session_start();
-                $_SESSION['nombre'] = $fila['nombre'];
+                $_SESSION['usuario'] = $fila['nombre'];
                 $_SESSION['correo'] = $_POST['correo'];
                 $_SESSION['logueado'] = true;
                 $_SESSION['hora'] = time();

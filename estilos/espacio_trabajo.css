@@ -1,0 +1,185 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("https://cdn.prod.website-files.com/6768f29a6d5da42209173f20/6768f29b6d5da42209177574_Rectangle%20(28).svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffc107;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+.list-group-item {
+   background-color: #ffc107; 
+}
+
+.sidebar .list-group-item {
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    transition: all 0.2s;
+}
+
+.sidebar .list-group-item:hover {
+    background-color: #f8f9fa;
+    border-left: 4px solid #0d6efd;
+}
+
+.sidebar .list-group-item.active {
+    background-color: #e9ecef;
+    border-left: 4px solid #0d6efd;
+    color: #0d6efd;
+}
+
+/* Main content area */
+main {
+    position: relative;
+    padding-top: 1.5rem;
+    height: 100vh;
+}
+
+.content-area {
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    min-height: 300px;
+    background-color: whitesmoke;
+}
+
+/* User area */
+.user-area{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.content-user{
+    position: relative;
+    background-color: whitesmoke;
+    height: 50px;
+    width: 50px;
+    border-radius: 2em;
+    background-image: url("../recursos/img/user.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.setting-area{
+    position: absolute;
+    right: 0;
+    bottom: 60px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 10px;
+    display: none;
+    min-width: 200px;
+}
+
+.setting-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.setting-list li{
+    padding: 8px 0;
+}
+
+.setting-list button{
+    width: 100%;
+    text-align: left;
+    color: #333;
+}
+
+.setting-list button:hover{
+    color: #0d6efd;
+}
+
+.show-settings{
+    display: block;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn{
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.content-user{
+    cursor: pointer;
+    display: flex;
+    padding: 15px;
+    flex-direction: column;
+    button{
+        color: black;
+        display: flex;
+        gap: 10px;
+        transition: all 0.15s;
+    }
+    button:hover{
+        scale: 1.05;
+        background-color: black;
+        color: white;
+    }
+}
+
+/* Footer styles */
+footer{
+    position: relative;
+    bottom: 0;
+    z-index: 9999;
+}
+
+/* Responsive adjustments */
+/* Sidebar styles for mobile */
+@media (max-width: 768px) {
+    .titulo-h1{
+        width: 100%;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        height: 100%;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .collapse:not(.show) {
+        display: block;
+        visibility: hidden;
+        transform: translateX(-100%);
+    }
+    
+    .collapse.show {
+        visibility: visible;
+        transform: translateX(0);
+    }
+
+    .collapse.hide{
+        visibility: hidden;
+        transform: translateX(-100%);
+    }
+}
