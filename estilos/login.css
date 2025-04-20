@@ -1,14 +1,14 @@
-.contenedor_registro_1  {
+.contenedor_login_1  {
     height: 100vh;;
 }
 
-.contenedor_registro_2{
+.contenedor_login_2{
     width: 50%;
     height: 0%;
 }
 
 @media screen and (max-width: 998px) {
-    .contenedor_registro_2{
+    .contenedor_login_2{
         width: 80%;
     }
 }
