@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="content-area">
-                    <!-- Content will be loaded here -->
+                    <!-- El contenido se pinta aquí -->
                     <p>Selecciona una opción del menú para comenzar.</p>
                 </div>
 
