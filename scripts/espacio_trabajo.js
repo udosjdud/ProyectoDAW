@@ -70,4 +70,36 @@ $("#btn-cerrar-sesion").on("click", function () {
 // Función para agregar una nueva tabla
 $("#crear_tabla").click(function () {
     console.log("Crear tabla");
+    
+});
+
+$("#add_tabla_form").on("submit", function (e) {
+    e.preventDefault(); // Evitar que el formulario recargue la página
+    // Recoger el nombre de la tabla
+    var nombreTabla = $("#titulo_tabla").val();
+
+    if (nombreTabla == "") {
+        alert("Por favor, introduce un nombre para la tabla.");
+        return;
+    }
+
+    fetch('../../server/crear_tabla.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'nombre_tabla=' + nombreTabla
+    })
+        .then(response => response.text())
+        .then(data => {
+            copnsole.log("Respuesta del servidor: ",data);
+            if (data == "Tablero creado"){
+                $(".content-area").append(`<div class="tablero">${nombreTabla}</div>`);
+                $("#addTableModal").modal('hide'); // Cerrar el modal
+                $("#titulo_tabla").val(""); // Limpiar el campo de entrada
+            }else{
+                alert("Error al crear la tabla: " + data);
+            }
+        })
+        .catch(error => console.error('Error:', error));
 });

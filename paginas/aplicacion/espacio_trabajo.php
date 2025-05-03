@@ -72,10 +72,10 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="add_tabla_form" action="../../server/crear_tabla.php" enctype="multipart/form-data">
+                                <form id="add_tabla_form" action="../../server/crear_tabla.php" enctype="multipart/form-data" method="POST">
                                     <div class="mb-3">
                                         <label for="titulo" class="form-label">Título de la tabla: </label>
-                                        <input type="text" class="form-control" id="titulo_tabla" name="título"
+                                        <input type="text" class="form-control" id="titulo_tabla" name="titulo_tabla"
                                             maxlength="30" required>
                                     </div>
 
