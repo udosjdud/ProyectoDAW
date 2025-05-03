@@ -66,3 +66,8 @@ $("#btn-cerrar-sesion").on("click", function () {
         });
 
 });
+
+// Función para agregar una nueva tabla
+$("#crear_tabla").click(function () {
+    console.log("Crear tabla");
+});
