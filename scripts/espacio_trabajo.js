@@ -1,5 +1,3 @@
-// Toggle sidebar on mobile
-// Handle button clicks
 $("#todas-tablas").click(function () {
     // Function for "Todas mis tablas"
     $(".content-area").html("<h3>Todas mis tablas</h3><p>Aquí se mostrarán todas tus tablas</p>");
@@ -15,7 +13,7 @@ $("#compartidos").click(function () {
     $(".content-area").html("<h3>Compartidos conmigo</h3><p>Aquí se mostrarán las tablas compartidas contigo</p>");
 });
 
-// Close sidebar on mobile after clicking a menu item
+// Funcion para abrir el menú lateral en pantallas pequeñas
 if (window.innerWidth < 768) {
     $(".list-group-item").click(function () {
         $("#sidebar").toggleClass("hide");
@@ -38,13 +36,13 @@ if (window.innerWidth < 768) {
     });
 }
 
-// Toggle user settings menu
+// Función para abrir el menú de usuario
 $(".content-user").on("click", function (e) {
     e.stopPropagation();
     $(".setting-area").toggleClass("show-settings");
 });
 
-// Close settings when clicking outside
+// Función para cerrar el menú de usuario cuando se hace click fuera de él
 $(document).on('click', function (e) {
     if (!$(e.target).closest('.content-user').length &&
         !$(e.target).closest('.setting-area').length) {
@@ -67,4 +65,9 @@ $("#btn-cerrar-sesion").on("click", function () {
             //console.log(data);
         });
 
+});
+
+// Función para agregar una nueva tabla
+$("#crear_tabla").click(function () {
+    console.log("Crear tabla");
 });
