@@ -1,37 +1,57 @@
 <?php
-    // Aquí se agrega la tabla a la base de datos 
+header('Content-Type: application/json');
+
+try {
     require_once('conexion.php');
-    require_once('sesiones.php');
+    session_start();
+} catch (Throwable $t) {
+    echo json_encode(['error' => 'Error en la conexión a la base de datos']);
+    exit();
+}
 
-    if(isset($_POST['titulo_tabla'])) {
-        $titulo_tabla = $_POST['titulo_tabla'];
-        $id_usuario = $_SESSION['usuario'];
+if (isset($_POST['titulo_tabla'])) {
+    $titulo_tabla = $_POST['titulo_tabla'];
+    $id_usuario = $_SESSION['id'];
 
-        // Conexión a la base de datos
-        $conexion = mysqli_connect($servidor, $usuario, $password, $bbdd);
-        mysqli_query($conexion, "SET NAMES 'UTF8'");
-            
-        
-        if ($conexion){
-            // Verificar si existen tableros con el mismo título para el usuario
-            $query = "SELECT * FROM espacios_trabajos WHERE titulo = '$titulo_tabla' AND propietario = '$id_usuario'";
-            $result = mysqli_query($conexion, $query);
-            
-            if (mysqli_num_rows($result) > 0){
-                alert("Ya existe un tablero con ese título");
-            }else{
-                // Crear la tabla en la base de datos
-                $consulta = "INSERT INTO espacios_trabajos (titulo, propietario) VALUES ('$titulo_tabla', '$id_usuario')";
-                if(mysqli_query($conexion, $consulta)){
-                    echo "Tablero creado";
-                }else{
-                    echo "Error al crear el tablero";
-                }  
+    // Verificar si existen tableros con el mismo título para el usuario
+    $consulta = $conexion->prepare("SELECT id FROM espacios_trabajos WHERE titulo = ? AND id_propietario = ?");
+    $consulta->bind_param("si", $titulo_tabla, $id_usuario);
+    $consulta->execute();
+    $result = $consulta->get_result();
+
+    if ($result->num_rows > 0) {
+        echo json_encode(['error' => 'Ya existe un tablero con ese título']);
+    } else {
+        // Crear el tablero
+        $cprep = $conexion->prepare("INSERT INTO espacios_trabajos (titulo, id_propietario) VALUES (?, ?)");
+        $cprep->bind_param("si", $titulo_tabla, $id_usuario);
+
+        if ($cprep->execute()) {
+            $last_id = $conexion->insert_id;
+
+            $consulta2 = $conexion->prepare("SELECT fecha_creacion FROM espacios_trabajos WHERE id = ?");
+            $consulta2->bind_param("i", $last_id);
+            $consulta2->execute();
+            $result2 = $consulta2->get_result();
+
+            if ($fila = $result2->fetch_assoc()) {
+                echo json_encode([
+                    'mensaje' => 'Tablero creado correctamente',
+                    'fecha_creacion' => $fila['fecha_creacion']
+                ]);
+            } else {
+                echo json_encode(['error' => 'No se pudo obtener la fecha de creación']);
             }
-        }else{
-            echo "Error en la conexión a la base de datos: " . mysqli_connect_error();
-            exit();
+
+            $consulta2->close();
+        } else {
+            echo json_encode(['error' => 'Error al crear el tablero']);
         }
+
+        $cprep->close();
     }
 
+    $consulta->close();
+    $conexion->close();
+}
 ?>

@@ -4,40 +4,54 @@ if (isset($_POST['registro'])) {
     try {
         require('../server/conexion.php');
         $email = $_POST['correo'];
+
+        // Validación del correo
         if (filter_var($email, FILTER_VALIDATE_EMAIL) && (str_ends_with($email, '.com') || str_ends_with($email, '.es'))) {
 
-            $conexion = mysqli_connect($servidor, $usuario, $password, $bbdd);
-            mysqli_query($conexion, "SET NAMES 'UTF8'");
-
+            // Conexión y selección de base de datos
             if (mysqli_select_db($conexion, $bbdd)) {
 
-                $consulta = "SELECT * FROM usuarios WHERE correo='$email'";
-                $resultado = mysqli_query($conexion, $consulta);
+                // Comprobamos si el email ya existe usando consultas preparadas
+                $consulta = $conexion->prepare("SELECT * FROM usuarios WHERE correo = ?");
+                $consulta->bind_param("s", $email);
+                $consulta->execute();
+                $resultado = $consulta->get_result();
 
-                if (mysqli_num_rows($resultado) == 0) {
-                    
+                if ($resultado->num_rows == 0) {
+
+                    // Verificamos que las contraseñas coincidan
                     if ($_POST['password'] == $_POST['re_password']) {
 
+                        // Datos del formulario
                         $nombre = $_POST['nombre'];
                         $correo = $_POST['correo'];
                         $passw = $_POST['password'];
 
-                        $consulta = "INSERT INTO usuarios (nombre, correo, passw) VALUES ('$nombre', '$correo', AES_ENCRYPT('$passw', 'almandrullos'))";
-                        //$consulta = "INSERT INTO usuarios (nombre, correo, passw) VALUES ('$nombre', '$correo', '$passw')";
-                        
-                        if(mysqli_query($conexion, $consulta)) {
+                        // Contraseña encriptada
+                        $hashed_password = password_hash($passw, PASSWORD_DEFAULT);
+
+                        // Consulta para insertar el nuevo usuario
+                        $consulta = $conexion->prepare("INSERT INTO usuarios (nombre, correo, passw) VALUES (?, ?, ?)");
+                        $consulta->bind_param("sss", $nombre, $correo, $hashed_password);
+
+                        if ($consulta->execute()) {
                             session_start();
                             $_SESSION['usuario'] = $_POST['nombre'];
                             $_SESSION['correo'] = $_POST['correo'];
                             $_SESSION['logueado'] = true;
                             $_SESSION['hora'] = time();
+
+                            // Obtener el ID del usuario recién insertado
+                            $last_id = $conexion->insert_id;
+                            $_SESSION['id'] = $last_id;
+
                             header("Location: ../paginas/aplicacion/espacio_trabajo.php");
                         } else {
                             header("Location: ../paginas/registro.html?error=insert_error");
                         }
 
                     } else {
-                        header("Location:../paginas/registro.html?error=passwords_dont_match");
+                        header("Location: ../paginas/registro.html?error=passwords_dont_match");
                     }
 
                 } else {
@@ -54,30 +68,40 @@ if (isset($_POST['registro'])) {
     }
 }
 
-
 if (isset($_POST['iniciarSesion'])) {
     try {
         require('../server/conexion.php');
         $email = $_POST['correo'];
+
+        // Validación del correo
         if (filter_var($email, FILTER_VALIDATE_EMAIL) && (str_ends_with($email, '.com') || str_ends_with($email, '.es'))) {
 
-            $conexion = mysqli_connect($servidor, $usuario, $password, $bbdd);
-            mysqli_query($conexion, "SET NAMES 'UTF8'");
-
+            // Consultas preparadas para evitar inyección SQL
             $correo = mysqli_real_escape_string($conexion, $_POST['correo']);
-            $pass = mysqli_real_escape_string($conexion, $_POST['password']);
+            $pass = $_POST['password'];
 
-            $consulta = "SELECT * FROM usuarios WHERE correo='$correo' AND CAST(AES_DECRYPT(passw, 'almandrullos') AS CHAR) = '$pass'";
-            $resultado = mysqli_query($conexion, $consulta);
+            // Consulta para verificar las credenciales del usuario
+            $consulta = $conexion->prepare("SELECT * FROM usuarios WHERE correo = ?");
+            $consulta->bind_param("s", $correo);
+            $consulta->execute();
+            $resultado = $consulta->get_result();
 
-            if (mysqli_num_rows($resultado) == 1) {
-                $fila = mysqli_fetch_array($resultado);
-                session_start();
-                $_SESSION['usuario'] = $fila['nombre'];
-                $_SESSION['correo'] = $_POST['correo'];
-                $_SESSION['logueado'] = true;
-                $_SESSION['hora'] = time();
-                header("Location:../paginas/aplicacion/espacio_trabajo.php");
+            if ($resultado->num_rows == 1) {
+                $fila = $resultado->fetch_assoc();
+
+                // Verificamos la contraseña usando password_verify
+                if (password_verify($pass, $fila['passw'])) {
+                    session_start();
+                    $_SESSION['usuario'] = $fila['nombre'];
+                    $_SESSION['correo'] = $_POST['correo'];
+                    $_SESSION['id'] = $fila['id'];
+                    $_SESSION['logueado'] = true;
+                    $_SESSION['hora'] = time();
+                    header("Location: ../paginas/aplicacion/espacio_trabajo.php");
+                    exit();
+                } else {
+                    header("Location: ../paginas/login.html?error=invalid_credentials");
+                }
             } else {
                 header("Location: ../paginas/login.html?error=invalid_credentials");
             }

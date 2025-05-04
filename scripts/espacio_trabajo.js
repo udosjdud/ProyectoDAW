@@ -13,6 +13,39 @@ $("#compartidos").click(function () {
     $(".content-area").html("<h3>Compartidos conmigo</h3><p>Aquí se mostrarán las tablas compartidas contigo</p>");
 });
 
+// Funciones para agregar una nueva tabla
+
+function pintarTabla(tituloTabla){
+
+}
+
+$("#add_tabla_form").on("submit", function (e) {
+    e.preventDefault(); // Evitar que el formulario recargue la página
+    
+    // Recoger datos de la tabla
+    var tituloTabla = $("#titulo_tabla").val();
+
+    fetch('../../server/crear_tabla.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "titulo_tabla=" + tituloTabla
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Respuesta del servidor: ",data.mensaje);
+        if (data){
+            $(".content-area").append(`<div class="tablero">${tituloTabla}</div>`);
+            $("#addTableModal").modal('hide'); // Cerrar el modal
+            $("#titulo_tabla").val(""); // Limpiar el campo de entrada
+        }else{
+            alert("Error al crear la tabla: " + data.error);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
 // Funcion para abrir el menú lateral en pantallas pequeñas
 if (window.innerWidth < 768) {
     $(".list-group-item").click(function () {
@@ -45,7 +78,7 @@ $(".content-user").on("click", function (e) {
 // Función para cerrar el menú de usuario cuando se hace click fuera de él
 $(document).on('click', function (e) {
     if (!$(e.target).closest('.content-user').length &&
-        !$(e.target).closest('.setting-area').length) {
+    !$(e.target).closest('.setting-area').length) {
         $(".setting-area").removeClass("show-settings");
     }
 });
@@ -65,41 +98,4 @@ $("#btn-cerrar-sesion").on("click", function () {
             //console.log(data);
         });
 
-});
-
-// Función para agregar una nueva tabla
-$("#crear_tabla").click(function () {
-    console.log("Crear tabla");
-    
-});
-
-$("#add_tabla_form").on("submit", function (e) {
-    e.preventDefault(); // Evitar que el formulario recargue la página
-    // Recoger el nombre de la tabla
-    var nombreTabla = $("#titulo_tabla").val();
-
-    if (nombreTabla == "") {
-        alert("Por favor, introduce un nombre para la tabla.");
-        return;
-    }
-
-    fetch('../../server/crear_tabla.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'nombre_tabla=' + nombreTabla
-    })
-        .then(response => response.text())
-        .then(data => {
-            copnsole.log("Respuesta del servidor: ",data);
-            if (data == "Tablero creado"){
-                $(".content-area").append(`<div class="tablero">${nombreTabla}</div>`);
-                $("#addTableModal").modal('hide'); // Cerrar el modal
-                $("#titulo_tabla").val(""); // Limpiar el campo de entrada
-            }else{
-                alert("Error al crear la tabla: " + data);
-            }
-        })
-        .catch(error => console.error('Error:', error));
 });
