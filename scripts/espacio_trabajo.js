@@ -45,12 +45,12 @@ $("#todas-tablas").click(pintarTodasTablas);
 
 $("#mis-tablas").click(function () {
     // Function for "Mis tablas"
-    $(".content-area").html("<h3>Mis tablas</h3><p>Aquí se mostrarán las tablas creadas por ti</p>");
+    $(".content-tables").html("<h3>Mis tablas</h3><p>Aquí se mostrarán las tablas creadas por ti</p>");
 });
 
 $("#compartidos").click(function () {
     // Function for "Compartidos conmigo"
-    $(".content-area").html("<h3>Compartidos conmigo</h3><p>Aquí se mostrarán las tablas compartidas contigo</p>");
+    $(".content-tables").html("<h3>Compartidos conmigo</h3><p>Aquí se mostrarán las tablas compartidas contigo</p>");
 });
 
 // Funciones para agregar una nueva tabla
