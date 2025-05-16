@@ -1,50 +1,99 @@
-$("#todas-tablas").click(function () {
+function pintarTodasTablas() {
     // Function for "Todas mis tablas"
-    $(".content-area").html("<h3>Todas mis tablas</h3><p>Aquí se mostrarán todas tus tablas</p>");
-});
+    fetch("../../server/espacio_trabajo/mostrar_tablas.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'mostrar=todas'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if (data.tipo == "success") {
+                var contentTables = $(".content-tables");
+                var tablesData = data.data;
+
+                contentTables.html(""); // Limpiar el contenido anterior
+
+                for (var i = 0; i < tablesData.length; i++) {
+                    const fecha = new Date(tablesData[i].fecha_creacion);
+                    const fechaFormateado = fecha.toISOString().split('T')[0];
+
+                    contentTables.append(`
+                        <div class='tabla'>
+                            <h4>${tablesData[i].titulo}</h4>
+                            <p>Fecha de creación: ${fechaFormateado}</p>
+                        </div>
+                    `)
+                }
+
+            } else if (data.tipo == "null") {
+
+            } else {
+                alert("Error al mostrar las tablas: " + data.mensaje);
+            }
+        })
+}
+
+$(document).ready(function () {
+    // Pintar todas las tablas al cargar la página
+    pintarTodasTablas();
+})
+
+$("#todas-tablas").click(pintarTodasTablas);
 
 $("#mis-tablas").click(function () {
     // Function for "Mis tablas"
-    $(".content-area").html("<h3>Mis tablas</h3><p>Aquí se mostrarán las tablas creadas por ti</p>");
+    $(".content-tables").html("<h3>Mis tablas</h3><p>Aquí se mostrarán las tablas creadas por ti</p>");
 });
 
 $("#compartidos").click(function () {
     // Function for "Compartidos conmigo"
-    $(".content-area").html("<h3>Compartidos conmigo</h3><p>Aquí se mostrarán las tablas compartidas contigo</p>");
+    $(".content-tables").html("<h3>Compartidos conmigo</h3><p>Aquí se mostrarán las tablas compartidas contigo</p>");
 });
 
 // Funciones para agregar una nueva tabla
 
-function pintarTabla(tituloTabla){
+function pintarTabla(tituloTabla) {
 
 }
 
 $("#add_tabla_form").on("submit", function (e) {
     e.preventDefault(); // Evitar que el formulario recargue la página
-    
+
     // Recoger datos de la tabla
     var tituloTabla = $("#titulo_tabla").val();
 
-    fetch('../../server/crear_tabla.php', {
+    fetch('../../server/espacio_trabajo/crear_tabla.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: "titulo_tabla=" + tituloTabla
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Respuesta del servidor: ",data.mensaje);
-        if (data){
-            $(".content-area").append(`<div class="tablero">${tituloTabla}</div>`);
-            $("#addTableModal").modal('hide'); // Cerrar el modal
-            $("#titulo_tabla").val(""); // Limpiar el campo de entrada
-        }else{
-            alert("Error al crear la tabla: " + data.error);
-        }
-    })
-    .catch(error => console.error('Error:', error));
+        .then(response => response.json())
+        .then(data => {
+            console.log("Respuesta del servidor: ", data.mensaje);
+            if (data.tipo == "success") {
+                const fecha = new Date(data.fecha_creacion);
+                const fechaFormateado = fecha.toISOString().split('T')[0];
+                $(".content-tables").append(`
+                    <div class='tabla'>
+                        <h4>${tituloTabla}</h4>
+                        <p>Fecha de creación: ${fechaFormateado}</p> 
+                    </div>
+                    `);
+                $("#addTableModal").modal('hide'); // Cerrar el modal
+                $("#titulo_tabla").val(""); // Limpiar el campo de entrada
+            } else {
+                alert("Error al crear la tabla: " + data.mensaje);
+            }
+        })
+        .catch(error => console.error('Error:', error));
 });
+
+
 
 // Funcion para abrir el menú lateral en pantallas pequeñas
 if (window.innerWidth < 768) {
@@ -78,7 +127,7 @@ $(".content-user").on("click", function (e) {
 // Función para cerrar el menú de usuario cuando se hace click fuera de él
 $(document).on('click', function (e) {
     if (!$(e.target).closest('.content-user').length &&
-    !$(e.target).closest('.setting-area').length) {
+        !$(e.target).closest('.setting-area').length) {
         $(".setting-area").removeClass("show-settings");
     }
 });
@@ -97,5 +146,4 @@ $("#btn-cerrar-sesion").on("click", function () {
             window.location.href = data;
             //console.log(data);
         });
-
 });

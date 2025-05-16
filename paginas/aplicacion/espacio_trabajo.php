@@ -49,7 +49,7 @@
                         <i class="bi bi-list"></i>
                     </button>
                     <div class="titulo-h1 d-flex justify-content-center">
-                        <h1 class="h2 text-light">Espacio de trabajo de <?php echo $usuario ?></h1>
+                        <h1 class="h1 text-light">Espacio de trabajo de <?php echo $usuario ?></h1>
                     </div>
                 </div>
 
@@ -89,8 +89,8 @@
 
                 <!-- Mostrar tablas  -->
                 <div class="content-area">
-                    <div>
-
+                    <div class="content-tables">
+                        
                     </div>
                 </div>
 
