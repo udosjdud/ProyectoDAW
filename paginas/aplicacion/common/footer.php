@@ -1,6 +1,4 @@
 <?php
-require_once("../../server/sesiones.php");
-
 echo '<footer class="bg-dark text-white py-4">
     <div class="container">
         <div class="row">

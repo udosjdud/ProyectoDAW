@@ -14,6 +14,11 @@
 </head>
 
 <body>
+
+    <?php
+    require_once("../../server/sesiones.php");
+    ?>
+
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
@@ -38,28 +43,65 @@
 
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div
-                    class="d-flex align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div class="d-flex align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <button class="btn btn-primary d-md-none btn-ham" type="button" data-bs-toggle="collapse"
                         data-bs-target="#sidebar">
                         <i class="bi bi-list"></i>
                     </button>
                     <div class="titulo-h1 d-flex justify-content-center">
-                        <h1 class="h2 text-light">Espacio de trabajo</h1>
+                        <h1 class="h1 text-light">Espacio de trabajo de <?php echo $usuario ?></h1>
                     </div>
                 </div>
 
+                <!-- Botón para abrir el modal que irá el formulario para agregar una tabla -->
+                <div class="content-add-button">
+                    <button class="btn btn-warning mb-3 btn-add-form" id="btn-add-form" data-bs-toggle="modal"
+                        data-bs-target="#addTableModal"> Añadir tabla </button>
+                </div>
+                <!-- Modal para añadir tabla -->
+                <div class="modal fade" id="addTableModal" tabindex="-1" aria-labelledby="addTableModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addTableModalLabel">Añadir nueva tabla</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="add_tabla_form" method="POST">
+                                    <div class="mb-3">
+                                        <label for="titulo" class="form-label">Título de la tabla: </label>
+                                        <input type="text" class="form-control" id="titulo_tabla" name="titulo_tabla"
+                                            maxlength="30" required>
+                                    </div>
+
+                                    <div class="content_btn mt-4 d-flex gap-2 justify-content-end">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-warning" id="btn_addTabla">Guardar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mostrar tablas  -->
                 <div class="content-area">
-                    <!-- Content will be loaded here -->
-                    <p>Selecciona una opción del menú para comenzar.</p>
+                    <div class="content-tables">
+                        
+                    </div>
                 </div>
 
                 <div class="user-area">
                     <div class="content-user">
                         <div class="setting-area">
                             <div class="setting-list">
-                                <button id="" class="btn-setting btn btn-link text-decoration-none"><i class="bi bi-gear"></i> Configuración</button>
-                                <button id="btn-cerrar-sesion" class="btn-setting btn btn-link text-decoration-none"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</button>
+                                <button id="" class="btn-setting btn btn-link text-decoration-none"><i
+                                        class="bi bi-gear"></i> Configuración</button>
+                                <button id="btn-cerrar-sesion" class="btn-setting btn btn-link text-decoration-none"><i
+                                        class="bi bi-box-arrow-right"></i> Cerrar sesión</button>
                             </div>
                         </div>
                     </div>
@@ -69,7 +111,7 @@
     </div>
 
     <?php
-        require_once("common/footer.php");
+    require_once("common/footer.php");
     ?>
 </body>
 <script src='../../scripts/espacio_trabajo.js'></script>

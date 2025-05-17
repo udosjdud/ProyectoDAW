@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// Variables de sesión
+$usuario = $_SESSION['usuario'];
+$correo_usuario = $_SESSION['correo'];
+
 if (!isset($_SESSION['logueado'])){
     header('Location: ../index.html');
 }
