@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tablero</title>
-    <link rel="stylesheet" href="../estilos/espacio_trabajo.css">
+    <link rel="stylesheet" href="../../estilos/espacio_trabajo.css">
 </head>
 <body>
     <div id="vista-tablero"></div>

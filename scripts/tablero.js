@@ -9,6 +9,6 @@ $(document).ready(function () {
     .then(res => res.json())
     .then(data => {
 
-        $("#vista_tablero").html(JSON.stringify(data)); 
+        $("#vista-tablero").html("<h3>Vista del tablero " + data.titulo + "</h3><p>Aquí se mostrará el tablero seleccionado</p>"); 
     });
 });

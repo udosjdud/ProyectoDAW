@@ -58,7 +58,7 @@ $("#compartidos").click(function () {
 $(document).on("click", ".tabla", function () {
     var id_tabla = $(this).data("id");
     console.log("ID de la tabla seleccionada: " + id_tabla);
-    window.location.href = "../server/espacio_trabajo/mostrar_tablero.php?id_tabla=" + id_tabla;
+    window.location.href = "tablero.php?id_tabla=" + id_tabla;
 });
 
 // Funciones para agregar una nueva tabla
