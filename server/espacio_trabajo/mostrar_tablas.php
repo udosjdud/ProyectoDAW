@@ -34,7 +34,7 @@ if (isset($_POST['mostrar'])) {
                 echo json_encode([
                     'tipo' => 'success',
                     'mensaje' => 'Mostrando las tablas',
-                    'data' => $resultado->fetch_all(MYSQLI_ASSOC)   // Devuelve un array de arrays asociativos con los datoas de las tablas
+                    'data' => $resultado->fetch_all(MYSQLI_ASSOC)   // Devuelve un array de arrays asociativos con los datos de las tablas
 
                 ]);
             }

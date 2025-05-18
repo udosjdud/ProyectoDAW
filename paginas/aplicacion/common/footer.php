@@ -9,7 +9,7 @@ echo '<footer class="bg-dark text-white py-4">
             <div class="col-md-4 mb-3">
                 <h5 class="mb-3">Enlaces Rápidos</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white text-decoration-none">Inicio</a></li>
+                    <li><a href="../index.html" class="text-white text-decoration-none">Inicio</a></li>
                     <li><a href="#" class="text-white text-decoration-none">Características</a></li>
                     <li><a href="#" class="text-white text-decoration-none">Precios</a></li>
                     <li><a href="#" class="text-white text-decoration-none">Contacto</a></li>

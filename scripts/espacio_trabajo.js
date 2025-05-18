@@ -18,10 +18,11 @@ function pintarTodasTablas() {
 
                 for (var i = 0; i < tablesData.length; i++) {
                     const fecha = new Date(tablesData[i].fecha_creacion);
+                    // Recoger la fecha en formato YYYY-MM-DD
                     const fechaFormateado = fecha.toISOString().split('T')[0];
 
                     contentTables.append(`
-                        <div class='tabla'>
+                        <div class='tabla' data-id='${tablesData[i].id}'>
                             <h4>${tablesData[i].titulo}</h4>
                             <p>Fecha de creación: ${fechaFormateado}</p>
                         </div>
@@ -51,6 +52,13 @@ $("#mis-tablas").click(function () {
 $("#compartidos").click(function () {
     // Function for "Compartidos conmigo"
     $(".content-tables").html("<h3>Compartidos conmigo</h3><p>Aquí se mostrarán las tablas compartidas contigo</p>");
+});
+
+// Función para mostrar la vista del tablero seleccionado
+$(document).on("click", ".tabla", function () {
+    var id_tabla = $(this).data("id");
+    console.log("ID de la tabla seleccionada: " + id_tabla);
+    window.location.href = "../server/espacio_trabajo/mostrar_tablero.php?id_tabla=" + id_tabla;
 });
 
 // Funciones para agregar una nueva tabla

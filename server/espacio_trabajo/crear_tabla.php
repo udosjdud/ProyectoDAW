@@ -31,10 +31,13 @@ if (isset($_POST['titulo_tabla'])) {
 
         if ($cprep->execute()) {
             $last_id = $conexion->insert_id;
-
+            // Preparar la consulta SQL 
             $consulta2 = $conexion->prepare("SELECT fecha_creacion FROM espacios_trabajos WHERE id = ?");
+            // Asociar el valor de last_id al parámetro ? de la consulta, "i" indica que el parámetro es un entero
             $consulta2->bind_param("i", $last_id);
+            // Ejecutar la consulta
             $consulta2->execute();
+            // Obtener el resultado
             $result2 = $consulta2->get_result();
 
             if ($fila = $result2->fetch_assoc()) {
