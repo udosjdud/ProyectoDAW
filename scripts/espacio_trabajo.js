@@ -22,7 +22,7 @@ function pintarTodasTablas() {
                     const fechaFormateado = fecha.toISOString().split('T')[0];
 
                     contentTables.append(`
-                        <div class='tabla' data-id='${tablesData[i].id}'>
+                        <div class='tabla' data-tabla-id="${tablesData[i].id}">
                             <h4>${tablesData[i].titulo}</h4>
                             <p>Fecha de creación: ${fechaFormateado}</p>
                         </div>
