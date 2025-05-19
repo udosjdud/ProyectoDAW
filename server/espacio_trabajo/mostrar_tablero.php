@@ -26,10 +26,12 @@ if (isset($_POST['id_tabla'])) {
                 'mensaje' => "Error al seleccionar el tablero"
             ]);
         } else {
+             $fila = $resultado->fetch_assoc();
             echo json_encode([
                 'tipo' => 'success',
                 'mensaje' => 'Mostrando el tablero',
-                'data' => $resultado->fetch_all(MYSQLI_ASSOC)   // Devuelve un array de arrays asociativos con los datos de las tablas
+                'data' => $fila
+                // 'data' => $resultado->fetch_all(MYSQLI_ASSOC)   // Devuelve un array de arrays asociativos con los datos de las tablas
               ]);
             }
 
