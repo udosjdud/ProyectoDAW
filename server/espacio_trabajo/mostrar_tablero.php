@@ -1,4 +1,6 @@
 <?php
+echo "hola"
+/*
 header("content-type: application/json");
 
 try {
@@ -42,5 +44,5 @@ if (isset($_POST['id_tabla'])) {
             ]);
         }
     }
-
+*/
 ?>

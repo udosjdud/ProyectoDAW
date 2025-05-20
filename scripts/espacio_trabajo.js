@@ -22,7 +22,7 @@ function pintarTodasTablas() {
                     const fechaFormateado = fecha.toISOString().split('T')[0];
 
                     contentTables.append(`
-                        <div class='tabla' data-tabla-id="${tablesData[i].id}">
+                        <div class='tabla' data-tabla-id="${tablesData[i].id}" data-tabla-titulo="${tablesData[i].titulo}">
                             <h4>${tablesData[i].titulo}</h4>
                             <p>Fecha de creación: ${fechaFormateado}</p>
                         </div>
@@ -30,7 +30,7 @@ function pintarTodasTablas() {
                 }
 
             } else if (data.tipo == "null") {
-
+                // Para cuando no hay tablas
             } else {
                 alert("Error al mostrar las tablas: " + data.mensaje);
             }
@@ -56,16 +56,31 @@ $("#compartidos").click(function () {
 
 // Función para mostrar la vista del tablero seleccionado
 $(document).on("click", ".tabla", function () {
-    var id_tabla = $(this).data("id");
-    console.log("ID de la tabla seleccionada: " + id_tabla);
-    window.location.href = "tablero.php?id_tabla=" + id_tabla;
+    var id_tabla = $(this).data("tabla-id");
+    var titulo_tabla =$(this).data("tabla-titulo");
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "tablero.php";
+    
+    const campoID = document.createElement("input");
+    campoID.type = "hidden";
+    campoID.name = "id_tabla";
+    campoID.value = id_tabla;
+    
+    const campoTitulo = document.createElement("input");
+    campoTitulo.type = "hidden";
+    campoTitulo.name = "titulo_tabla";
+    campoTitulo.value = titulo_tabla;
+    
+    form.appendChild(campoID);
+    form.appendChild(campoTitulo);
+    
+    document.body.appendChild(form);
+    form.submit();
+
 });
 
-// Funciones para agregar una nueva tabla
-
-function pintarTabla(tituloTabla) {
-
-}
 
 $("#add_tabla_form").on("submit", function (e) {
     e.preventDefault(); // Evitar que el formulario recargue la página
@@ -102,7 +117,6 @@ $("#add_tabla_form").on("submit", function (e) {
 });
 
 
-
 // Funcion para abrir el menú lateral en pantallas pequeñas
 if (window.innerWidth < 768) {
     $(".list-group-item").click(function () {
@@ -125,33 +139,3 @@ if (window.innerWidth < 768) {
         $("#sidebar").toggleClass("show");
     });
 }
-
-// Función para abrir el menú de usuario
-$(".content-user").on("click", function (e) {
-    e.stopPropagation();
-    $(".setting-area").toggleClass("show-settings");
-});
-
-// Función para cerrar el menú de usuario cuando se hace click fuera de él
-$(document).on('click', function (e) {
-    if (!$(e.target).closest('.content-user').length &&
-        !$(e.target).closest('.setting-area').length) {
-        $(".setting-area").removeClass("show-settings");
-    }
-});
-
-// Función para cerrar sesión
-$("#btn-cerrar-sesion").on("click", function () {
-    fetch('../../server/sesiones.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'cerrar_sesion=true'
-    })
-        .then(response => response.text())
-        .then(data => {
-            window.location.href = data;
-            //console.log(data);
-        });
-});

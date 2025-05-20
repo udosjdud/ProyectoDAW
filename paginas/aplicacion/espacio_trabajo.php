@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel='stylesheet' type='text/css' media='screen' href='../../estilos/espacio_trabajo.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../estilos/user.css'>
 </head>
 
 <body>
@@ -94,18 +95,9 @@
                     </div>
                 </div>
 
-                <div class="user-area">
-                    <div class="content-user">
-                        <div class="setting-area">
-                            <div class="setting-list">
-                                <button id="" class="btn-setting btn btn-link text-decoration-none"><i
-                                        class="bi bi-gear"></i> Configuración</button>
-                                <button id="btn-cerrar-sesion" class="btn-setting btn btn-link text-decoration-none"><i
-                                        class="bi bi-box-arrow-right"></i> Cerrar sesión</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                require_once("common/user.php");
+                ?>
             </main>
         </div>
     </div>
@@ -115,5 +107,6 @@
     ?>
 </body>
 <script src='../../scripts/espacio_trabajo.js'></script>
+<script src='../../scripts/user.js'></script>
 
 </html>
