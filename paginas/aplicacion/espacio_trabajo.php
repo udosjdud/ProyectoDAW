@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel='stylesheet' type='text/css' media='screen' href='../../estilos/espacio_trabajo.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../../estilos/user.css'>
+    <script src='../../scripts/espacio_trabajo.js' defer></script>
+    <script src='../../scripts/user.js' defer></script>
 </head>
 
 <body>
@@ -91,7 +93,7 @@
                 <!-- Mostrar tablas  -->
                 <div class="content-area">
                     <div class="content-tables">
-                        
+
                     </div>
                 </div>
 
@@ -106,7 +108,5 @@
     require_once("common/footer.php");
     ?>
 </body>
-<script src='../../scripts/espacio_trabajo.js'></script>
-<script src='../../scripts/user.js'></script>
 
 </html>
