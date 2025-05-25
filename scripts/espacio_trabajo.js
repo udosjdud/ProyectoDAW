@@ -113,7 +113,10 @@ $("#add_tabla_form").on("submit", function (e) {
                 alert("Error al crear la tabla: " + data.mensaje);
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Error de comunicación con el servidor: " + error.message);
+        });
 });
 
 
