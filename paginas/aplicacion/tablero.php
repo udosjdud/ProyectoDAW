@@ -21,6 +21,7 @@
 
     if (isset($_POST['titulo_tabla'])) {
         $_SESSION['titulo_tabla'] = $_POST['titulo_tabla'];
+        $_SESSION['id_espacio'] = $_POST['id_espacio'];
     }
 
     ?>
@@ -70,16 +71,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addListForm">
+                <form id="add_ListForm">
                     <div class="mb-3">
-                        <label for="titulo-lista" class="form-label">Título de la Lista</label>
-                        <input type="text" class="form-control" id="titulo-lista" required>
+                        <label for="titulo_lista" class="form-label">Título de la Lista</label>
+                        <input type="text" class="form-control" id="titulo_lista" required>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" form="addListForm" class="btn btn-primary">Crear Lista</button>
+                <button type="submit" form="add_ListForm" class="btn btn-primary">Crear Lista</button>
             </div>
         </div>
     </div>

@@ -22,7 +22,7 @@ function pintarTodasTablas() {
                     const fechaFormateado = fecha.toISOString().split('T')[0];
 
                     contentTables.append(`
-                        <div class='tabla' data-tabla-id="${tablesData[i].id}" data-tabla-titulo="${tablesData[i].titulo}">
+                        <div class='tabla' data-espacio-id="${tablesData[i].id}" data-tabla-titulo="${tablesData[i].titulo}">
                             <h4>${tablesData[i].titulo}</h4>
                             <p>Fecha de creación: ${fechaFormateado}</p>
                         </div>
@@ -56,7 +56,7 @@ $("#compartidos").click(function () {
 
 // Función para mostrar la vista del tablero seleccionado
 $(document).on("click", ".tabla", function () {
-    var id_tabla = $(this).data("tabla-id");
+    var id_espacio = $(this).data("espacio-id");
     var titulo_tabla =$(this).data("tabla-titulo");
 
     const form = document.createElement("form");
@@ -65,8 +65,8 @@ $(document).on("click", ".tabla", function () {
     
     const campoID = document.createElement("input");
     campoID.type = "hidden";
-    campoID.name = "id_tabla";
-    campoID.value = id_tabla;
+    campoID.name = "id_espacio";
+    campoID.value = id_espacio;
     
     const campoTitulo = document.createElement("input");
     campoTitulo.type = "hidden";
@@ -102,7 +102,7 @@ $("#add_tabla_form").on("submit", function (e) {
                 const fecha = new Date(data.fecha_creacion);
                 const fechaFormateado = fecha.toISOString().split('T')[0];
                 $(".content-tables").append(`
-                    <div class='tabla'>
+                    <div class='tabla' data-espacio-id="${data.id}" data-tabla-titulo="${tituloTabla}">
                         <h4>${tituloTabla}</h4>
                         <p>Fecha de creación: ${fechaFormateado}</p> 
                     </div>

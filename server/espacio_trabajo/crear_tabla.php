@@ -44,7 +44,8 @@ if (isset($_POST['titulo_tabla'])) {
                 echo json_encode([
                     'tipo' => 'success',
                     'mensaje' => 'Tablero creado correctamente',
-                    'fecha_creacion' => $fila['fecha_creacion']
+                    'fecha_creacion' => $fila['fecha_creacion'],
+                    'id' => $last_id
                 ]);
             } else {
                 echo json_encode([
