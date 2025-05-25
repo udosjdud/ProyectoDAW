@@ -7,12 +7,14 @@ body {
     background-position: center;
 }
 
-main{
+.main {
     position: relative;
-    height: 100vh;
+    top: 0;
+    height: 91vh;
+    z-index: 1000;
 }
 
-h1{
+h1 {
     color: white;
     font-size: 2em;
     font-weight: 400;
@@ -24,7 +26,7 @@ h1{
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
     position: relative;
-    margin-bottom: 30px;
+    z-index: 1;
 }
 
 .navbar .container-fluid {
@@ -80,16 +82,17 @@ h1{
     .navbar {
         padding: 10px 0 25px 0;
     }
-    
+
     .navbar h1 {
         font-size: 1.4rem;
     }
-    
+
     .navbar .btn-light {
         padding: 6px 20px;
         font-size: 0.9rem;
     }
 }
+
 .navbar-brand {
     font-size: 1.5rem;
     margin-left: 1rem;
@@ -131,44 +134,60 @@ h1{
     font-size: 1.1rem;
 }
 
-/* footer */
-footer{
-    position: relative;
-    bottom: 0;
-    z-index: 9999;
+/* MAIN CONTENT */
+.main-content {
+    min-height: 100%;
+    padding-top: 1.5%;
 }
 
-.modal-content {
-    border-radius: 10px;
-    border: none;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+.board {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 88vh;
+    overflow-y: hidden;
 }
 
-.modal-header {
-    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 154, 0, 0.1) 100%);
-    border-bottom: 2px solid rgba(255, 193, 7, 0.2);
-    border-radius: 10px 10px 0 0;
+.list {
+    background: #f4f5f7;
+    border-radius: 6px;
+    width: 250px;
+    flex-shrink: 0;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    height: max-content;
 }
 
-.modal-title {
-    color: #333;
-    font-weight: 600;
+.card-container {
+    overflow: auto;
 }
 
-.modal-footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+.list h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
 }
 
-.modal-footer .btn-primary {
-    background: linear-gradient(135deg, rgba(255, 193, 7, 0.9) 0%, rgba(255, 154, 0, 0.9) 100%);
-    border: none;
-    padding: 8px 25px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+.card {
+    background: #fff;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
-.modal-footer .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(135deg, rgba(255, 193, 7, 1) 0%, rgba(255, 154, 0, 1) 100%);
+.add-card {
+    margin-top: auto;
+    padding: 0.5rem;
+    background: #dfe1e6;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #5e6c84;
+    cursor: pointer;
+    transition: background 0.2s;
 }

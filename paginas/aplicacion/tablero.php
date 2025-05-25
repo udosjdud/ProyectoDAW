@@ -48,18 +48,93 @@
     </header>
 
     <main>
-        <div class="main-content">
-            
+        <div class="main">
+            <div class="main-content">
+                <div class="board" id="board">
+                    <div class="list">
+                        <h3>Pendientes</h3>
+                        <div class="card-container">
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                        </div>
+                        <div class="add-card">+ Añadir tarjeta</div>
+                    </div>
+                    <div class="list">
+                        <h3>Pendientes</h3>
+                        <div class="card-container">
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                        </div>
+                        <div class="add-card">+ Añadir tarjeta</div>
+                    </div>
+                    <div class="list">
+                        <h3>Pendientes</h3>
+                        <div class="card-container">
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                        </div>
+                        <div class="add-card">+ Añadir tarjeta</div>
+                    </div>
+                    <div class="list">
+                        <h3>Pendientes</h3>
+                        <div class="card-container">
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                        </div>
+                        <div class="add-card">+ Añadir tarjeta</div>
+                    </div>
+                    <div class="list">
+                        <h3>Pendientes</h3>
+                        <div class="card-container">
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                        </div>
+                        <div class="add-card">+ Añadir tarjeta</div>
+                    </div>
+                    <div class="list">
+                        <h3>Pendientes</h3>
+                        <div class="card-container">
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                        </div>
+                        <div class="add-card">+ Añadir tarjeta</div>
+                    </div>
+                    <div class="list">
+                        <h3>Pendientes</h3>
+                        <div class="card-container">
+                            <div class="card">Tarea 1</div>
+                            <div class="card">Tarea 1</div>
+                        </div>
+                        <div class="add-card">+ Añadir tarjeta</div>
+                    </div>
+
+                </div>
+            </div>
+            <?php
+            require_once("common/user.php");
+            ?>
+
         </div>
-
-        <?php
-        require_once("common/user.php");
-        ?>
     </main>
-
-    <?php
-    require_once("common/footer.php");
-    ?>
 </body>
 
 <!-- Agregar antes del cierre de body -->
