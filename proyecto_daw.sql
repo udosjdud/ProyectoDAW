@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-05-2025 a las 13:57:59
+-- Tiempo de generación: 27-05-2025 a las 22:10:25
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,112 +24,56 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `espacios_trabajos`
---
-
-CREATE TABLE `espacios_trabajos` (
-  `id` smallint(20) UNSIGNED NOT NULL,
-  `titulo` varchar(255) NOT NULL,
-  `id_propietario` smallint(20) UNSIGNED NOT NULL,
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
-  `background_img` text DEFAULT 'NB'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `lista`
 --
 
 CREATE TABLE `lista` (
-  `id` smallint(20) UNSIGNED NOT NULL,
+  `id` int(11) NOT NULL,
   `titulo` varchar(100) NOT NULL,
-  `id_espacio_trabajo` smallint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id` smallint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `correo` varchar(100) NOT NULL,
-  `passw` blob NOT NULL,
-  `foto_perfil` text DEFAULT 'nd'
+  `id_espacio_trabajo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Volcado de datos para la tabla `lista`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `passw`, `foto_perfil`) VALUES
-(1, 'Probador', 'pruebas@gmail.com', 0x2432792431302451686d616a50714e414a6c4f7438353751397857462e365437392e746e5372344f6d7a73676c5459352f6558524f3267524754316d, 'nd');
+INSERT INTO `lista` (`id`, `titulo`, `id_espacio_trabajo`) VALUES
+(1, 'Pendiente', 3),
+(2, 'Pendiente 2', 3),
+(3, 'Pendiente', 4),
+(4, 'Pendiente 2', 4),
+(5, 'Pendiente 3', 4);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `espacios_trabajos`
---
-ALTER TABLE `espacios_trabajos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_propietario` (`id_propietario`);
-
---
 -- Indices de la tabla `lista`
 --
 ALTER TABLE `lista`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_espacio_trabajo` (`id_espacio_trabajo`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `correo` (`correo`);
+  ADD KEY `fk_espacio_trabajo` (`id_espacio_trabajo`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `espacios_trabajos`
---
-ALTER TABLE `espacios_trabajos`
-  MODIFY `id` smallint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `lista`
 --
 ALTER TABLE `lista`
-  MODIFY `id` smallint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` smallint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `espacios_trabajos`
---
-ALTER TABLE `espacios_trabajos`
-  ADD CONSTRAINT `fk_propietario` FOREIGN KEY (`id_propietario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
-
---
 -- Filtros para la tabla `lista`
 --
 ALTER TABLE `lista`
-  ADD CONSTRAINT `lista_ibfk_1` FOREIGN KEY (`id_espacio_trabajo`) REFERENCES `espacios_trabajos` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_espacio_trabajo` FOREIGN KEY (`id_espacio_trabajo`) REFERENCES `espacios_trabajos` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
