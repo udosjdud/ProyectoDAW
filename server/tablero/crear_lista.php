@@ -4,11 +4,12 @@ header("Content-Type: application/json");
 
 try {
     require_once("../conexion.php");
+    
     session_start();
-
+    
     if (isset($_POST["titulo_lista"])) {
         $titulo_tabla = trim($_POST["titulo_lista"]);
-        $id_espacioTrabajo = $_SESSION["id_tabla"];
+        $id_espacioTrabajo = $_SESSION["id_espacio"];
 
         $cprep = $conexion->prepare("INSERT INTO lista (titulo, id_espacio_trabajo) VALUES (?, ?)");
         $cprep->bind_param("si", $titulo_tabla, $id_espacioTrabajo);

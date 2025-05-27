@@ -54,7 +54,7 @@ $("#compartidos").click(function () {
     $(".content-tables").html("<h3>Compartidos conmigo</h3><p>Aquí se mostrarán las tablas compartidas contigo</p>");
 });
 
-// Función para mostrar la vista del tablero seleccionado
+// Función para mandar por POST las variables importantes del tablero
 $(document).on("click", ".tabla", function () {
     var id_espacio = $(this).data("espacio-id");
     var titulo_tabla =$(this).data("tabla-titulo");

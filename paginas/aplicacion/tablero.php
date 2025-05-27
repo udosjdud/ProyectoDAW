@@ -19,9 +19,10 @@
     <?php
     require_once("../../server/sesiones.php");
 
+    // Guardad variables importantes en variables de sesión para usarlas en otros archivos php
     if (isset($_POST['titulo_tabla'])) {
         $_SESSION['titulo_tabla'] = $_POST['titulo_tabla'];
-        $_SESSION['id_espacio'] = $_POST['id_espacio'];
+        $_SESSION['id_espacio'] = $_POST['id_espacio']; // Muy importante
     }
 
     ?>
@@ -47,85 +48,34 @@
         </nav>
     </header>
 
+    <div class="modal fade" id="addListModal" tabindex="-1" aria-labelledby="addListModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addListModalLabel">Nueva Lista</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add_ListForm">
+                        <div class="mb-3">
+                            <label for="titulo_lista" class="form-label">Título de la Lista</label>
+                            <input type="text" class="form-control" id="titulo_lista" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="add_ListForm" class="btn btn-primary">Crear Lista</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main>
         <div class="main">
             <div class="main-content">
                 <div class="board" id="board">
-                    <div class="list">
-                        <h3>Pendientes</h3>
-                        <div class="card-container">
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                        </div>
-                        <div class="add-card">+ Añadir tarjeta</div>
-                    </div>
-                    <div class="list">
-                        <h3>Pendientes</h3>
-                        <div class="card-container">
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                        </div>
-                        <div class="add-card">+ Añadir tarjeta</div>
-                    </div>
-                    <div class="list">
-                        <h3>Pendientes</h3>
-                        <div class="card-container">
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                        </div>
-                        <div class="add-card">+ Añadir tarjeta</div>
-                    </div>
-                    <div class="list">
-                        <h3>Pendientes</h3>
-                        <div class="card-container">
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                        </div>
-                        <div class="add-card">+ Añadir tarjeta</div>
-                    </div>
-                    <div class="list">
-                        <h3>Pendientes</h3>
-                        <div class="card-container">
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                        </div>
-                        <div class="add-card">+ Añadir tarjeta</div>
-                    </div>
-                    <div class="list">
-                        <h3>Pendientes</h3>
-                        <div class="card-container">
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                        </div>
-                        <div class="add-card">+ Añadir tarjeta</div>
-                    </div>
-                    <div class="list">
-                        <h3>Pendientes</h3>
-                        <div class="card-container">
-                            <div class="card">Tarea 1</div>
-                            <div class="card">Tarea 1</div>
-                        </div>
-                        <div class="add-card">+ Añadir tarjeta</div>
-                    </div>
+
 
                 </div>
             </div>
@@ -136,29 +86,5 @@
         </div>
     </main>
 </body>
-
-<!-- Agregar antes del cierre de body -->
-<div class="modal fade" id="addListModal" tabindex="-1" aria-labelledby="addListModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addListModalLabel">Nueva Lista</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="add_ListForm">
-                    <div class="mb-3">
-                        <label for="titulo_lista" class="form-label">Título de la Lista</label>
-                        <input type="text" class="form-control" id="titulo_lista" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" form="add_ListForm" class="btn btn-primary">Crear Lista</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 </html>
