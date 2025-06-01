@@ -14,9 +14,12 @@ try {
         $cprep->bind_param("si", $titulo_tabla, $id_espacioTrabajo);
 
         if ($cprep->execute()) {
+            $id_lista = $cprep->insert_id;
+            $cprep->close();
             echo json_encode([
                 'tipo' => 'success',
-                'mensaje' => 'Lista creada con éxito'
+               'mensaje' => 'Lista creada con éxito',
+                'id_lista' => $id_lista
             ]);
         } else {
             echo json_encode([
