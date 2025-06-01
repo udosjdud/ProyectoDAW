@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2025 a las 23:01:16
+-- Tiempo de generación: 01-06-2025 a las 22:32:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -89,11 +89,32 @@ INSERT INTO `lista` (`id`, `titulo`, `id_espacio_trabajo`) VALUES
 (2, 'Pendiente 2', 3),
 (3, 'Pendiente', 4),
 (4, 'Pendiente 2', 4),
-(5, 'Pendiente 3', 4),
-(6, 'asdasd', 3),
-(7, 'acacascasc', 3),
-(8, 'cascascasca', 3),
-(9, 'cvbcvbcvb', 3);
+(14, 'mytghhn', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tareas`
+--
+
+CREATE TABLE `tareas` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `fecha_creacion` date NOT NULL DEFAULT current_timestamp(),
+  `fecha_vencimiento` date DEFAULT NULL,
+  `id_lista` int(11) DEFAULT NULL,
+  `posicion` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tareas`
+--
+
+INSERT INTO `tareas` (`id`, `titulo`, `descripcion`, `fecha_creacion`, `fecha_vencimiento`, `id_lista`, `posicion`) VALUES
+(1, 'prueba', NULL, '2025-06-01', NULL, 2, 0),
+(2, 'prueba 2', NULL, '2025-06-01', NULL, 2, 1),
+(3, 'prueba 3', NULL, '2025-06-01', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -136,6 +157,13 @@ ALTER TABLE `lista`
   ADD KEY `fk_espacio_trabajo` (`id_espacio_trabajo`);
 
 --
+-- Indices de la tabla `tareas`
+--
+ALTER TABLE `tareas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_lista` (`id_lista`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -156,7 +184,13 @@ ALTER TABLE `espacios_trabajos`
 -- AUTO_INCREMENT de la tabla `lista`
 --
 ALTER TABLE `lista`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `tareas`
+--
+ALTER TABLE `tareas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -179,6 +213,12 @@ ALTER TABLE `espacios_trabajos`
 --
 ALTER TABLE `lista`
   ADD CONSTRAINT `fk_espacio_trabajo` FOREIGN KEY (`id_espacio_trabajo`) REFERENCES `espacios_trabajos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `tareas`
+--
+ALTER TABLE `tareas`
+  ADD CONSTRAINT `tareas_ibfk_1` FOREIGN KEY (`id_lista`) REFERENCES `lista` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
