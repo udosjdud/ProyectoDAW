@@ -40,7 +40,8 @@
                             <?php echo htmlspecialchars($_SESSION['titulo_tabla']); ?>
                         </h1>
                     </div>
-                    <button class="add-list-btn btn btn-primary mt-2 mt-lg-0" data-bs-toggle="modal" data-bs-target="#addListModal">
+                    <button class="add-list-btn btn btn-primary mt-2 mt-lg-0" data-bs-toggle="modal"
+                        data-bs-target="#addListModal">
                         <i class="bi bi-plus-lg"></i>
                         <span class="d-none d-sm-inline">Añadir Lista</span>
                     </button>
@@ -90,6 +91,110 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" form="add_TaskForm" class="btn btn-primary">Crear Tarea</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tareaModal" tabindex="-1" aria-labelledby="tareaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center w-100">
+                        <i class="bi bi-card-text me-3 fs-4"></i>
+                        <h4 class="modal-title mb-0 flex-grow-1" id="tareaModalLabel"></h4>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <!-- Sección principal izquierda -->
+                        <div class="col-lg-8">
+                            <!-- Descripción -->
+                            <div class="section-container mb-4">
+                                <div class="section-header">
+                                    <i class="bi bi-text-paragraph me-2"></i>
+                                    <h6 class="mb-0">Descripción</h6>
+                                </div>
+                                <div class="section-content">
+                                    <textarea class="form-control" id="descripcion" rows="4"
+                                        placeholder="Añade una descripción más detallada..."></textarea>
+                                    <button id="btnGuardar" class="btn btn-success btn-sm mt-3 d-none">
+                                        <i class="bi bi-check-lg me-1"></i>Guardar cambios
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Subtareas -->
+                            <div class="section-container">
+                                <div class="section-header">
+                                    <i class="bi bi-check2-square me-2"></i>
+                                    <h6 class="mb-0">Subtareas</h6>
+                                </div>
+                                <div class="section-content">
+                                    <div class="subtareas-list">
+                                        <div class="subtarea-item">
+                                            <div class="d-flex align-items-center flex-grow-1">
+                                                <input class="form-check-input me-3" type="checkbox" id="subtarea1">
+                                                <label class="form-check-label flex-grow-1" for="subtarea1">
+                                                    Subtarea de ejemplo
+                                                </label>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-danger delete-subtarea">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        </div>
+                                        <div class="subtarea-item">
+                                            <div class="d-flex align-items-center flex-grow-1">
+                                                <input class="form-check-input me-3" type="checkbox" id="subtarea2">
+                                                <label class="form-check-label flex-grow-1" for="subtarea2">
+                                                    Otra subtarea
+                                                </label>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-danger delete-subtarea">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="btn btn-outline-primary btn-sm w-100 mt-3 add-subtarea-btn">
+                                        <i class="bi bi-plus-lg me-2"></i>Añadir subtarea
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel lateral derecho -->
+                        <div class="col-lg-4">
+                            <!-- Fecha límite -->
+                            <div class="section-container">
+                                <div class="section-header">
+                                    <i class="bi bi-calendar-event me-2"></i>
+                                    <h6 class="mb-0">Fecha límite</h6>
+                                </div>
+                                <div class="section-content">
+                                    <div class="mb-3">
+                                        <input type="date" class="form-control date-input" id="fecha">
+                                    </div>
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="bi bi-clock me-2"></i>
+                                        <small>Opcional: establece una fecha límite</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-between w-100">
+                        <button type="button" class="btn btn-outline-danger" id="eliminarTarea">
+                            <i class="bi bi-trash me-1"></i>Eliminar tarea
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-lg me-1"></i>Cerrar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

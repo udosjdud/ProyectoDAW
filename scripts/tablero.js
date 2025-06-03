@@ -48,7 +48,7 @@ async function cargarDatos() {
             const container = $("#card-container-" + listaId);
             tareas.forEach(tarea => {
                 container.append(`
-                    <div class="card" id="card-${tarea.id}">
+                    <div class="card" id="card-${tarea.id}" data-bs-toggle="modal" data-bs-target="#tareaModal">
                         <h4>${tarea.titulo}</h4>
                         <button class="delete-task-btn" title="Eliminar tarea"><i class="bi bi-trash"></i></button>
                     </div>
@@ -217,13 +217,24 @@ $("#add_TaskForm").on("submit", function (e) {
         .then(data => {
             console.log("card-container-" + listaId);
             $("#card-container-" + listaId).append(`
-                <div class="card" id="card-${data.id}">
+                <div class="card" id="card-${data.id}" data-bs-toggle="modal" data-bs-target="#tareaModal">
                     <h4>${titulo}</h4>
                     <button class="delete-task-btn" title="Eliminar tarea"><i class="bi bi-trash"></i></button>
                 </div>
                 `)
         })
 })
+
+const descripcion = document.getElementById('descripcion');
+const btnGuardar = document.getElementById('btnGuardar');
+
+descripcion.addEventListener('input', () => {
+    if (descripcion.value.trim() !== '') {
+        btnGuardar.classList.remove('d-none');
+    } else {
+        btnGuardar.classList.add('d-none');
+    }
+});
 
 // Funcion para arrastrar entre listas
 var isDown = false;
@@ -251,3 +262,8 @@ board.on("mousemove", function (e) {
     var walk = (x - startX);
     board.scrollLeft(scrollLeft - walk);
 })
+
+$(document).on("click", ".card", function () {
+    const taskTitle = $(this).find('h4').text();
+    $('#tareaModalLabel').text(taskTitle);
+});
