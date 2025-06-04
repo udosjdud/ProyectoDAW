@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-06-2025 a las 22:32:35
+-- Tiempo de generación: 04-06-2025 a las 18:16:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -89,7 +89,32 @@ INSERT INTO `lista` (`id`, `titulo`, `id_espacio_trabajo`) VALUES
 (2, 'Pendiente 2', 3),
 (3, 'Pendiente', 4),
 (4, 'Pendiente 2', 4),
-(14, 'mytghhn', 3);
+(15, 'fdgdfg', 4),
+(16, 'fdgdfgvsvsd', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `subtarea`
+--
+
+CREATE TABLE `subtarea` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(100) NOT NULL,
+  `completado` tinyint(1) DEFAULT 0,
+  `id_tarea` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `subtarea`
+--
+
+INSERT INTO `subtarea` (`id`, `titulo`, `completado`, `id_tarea`) VALUES
+(1, 'Prueba', 1, 3),
+(2, 'Prueba', 0, 3),
+(3, 'Prueba', 1, 5),
+(4, 'otro', 0, 5),
+(5, 'otra mas', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -112,9 +137,19 @@ CREATE TABLE `tareas` (
 --
 
 INSERT INTO `tareas` (`id`, `titulo`, `descripcion`, `fecha_creacion`, `fecha_vencimiento`, `id_lista`, `posicion`) VALUES
-(1, 'prueba', NULL, '2025-06-01', NULL, 2, 0),
-(2, 'prueba 2', NULL, '2025-06-01', NULL, 2, 1),
-(3, 'prueba 3', NULL, '2025-06-01', NULL, 1, 1);
+(3, 'prueba 3', 'Descripción de prueba para tarea 3', '2025-06-01', NULL, 1, 0),
+(5, 'prueba', 'Descripción para prueba ', '2025-06-03', NULL, 1, 1),
+(7, 'prueba 3', NULL, '2025-06-03', NULL, 2, 0),
+(14, 'asj,mdhjkasd', NULL, '2025-06-04', NULL, 3, 0),
+(15, 'vsdvscxv', NULL, '2025-06-04', NULL, 3, 1),
+(16, 'xcxcvv', NULL, '2025-06-04', NULL, 3, 2),
+(17, 'cxvc', 'asdasd asdad', '2025-06-04', NULL, 4, 0),
+(18, 'svsv', NULL, '2025-06-04', NULL, 4, 2),
+(19, ',mnbdfg', NULL, '2025-06-04', NULL, 15, 0),
+(20, 'xcvx', 'xcvxv', '2025-06-04', NULL, 15, 1),
+(21, 'xcvxcvbcvb', 'cxvbbfsbdfb', '2025-06-04', NULL, 15, 2),
+(22, 'dfbdfb', 'sdfasdf', '2025-06-04', NULL, 4, 1),
+(23, 'ascas', NULL, '2025-06-04', NULL, 16, 0);
 
 -- --------------------------------------------------------
 
@@ -157,6 +192,13 @@ ALTER TABLE `lista`
   ADD KEY `fk_espacio_trabajo` (`id_espacio_trabajo`);
 
 --
+-- Indices de la tabla `subtarea`
+--
+ALTER TABLE `subtarea`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_tarea` (`id_tarea`);
+
+--
 -- Indices de la tabla `tareas`
 --
 ALTER TABLE `tareas`
@@ -184,13 +226,19 @@ ALTER TABLE `espacios_trabajos`
 -- AUTO_INCREMENT de la tabla `lista`
 --
 ALTER TABLE `lista`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `subtarea`
+--
+ALTER TABLE `subtarea`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -213,6 +261,12 @@ ALTER TABLE `espacios_trabajos`
 --
 ALTER TABLE `lista`
   ADD CONSTRAINT `fk_espacio_trabajo` FOREIGN KEY (`id_espacio_trabajo`) REFERENCES `espacios_trabajos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `subtarea`
+--
+ALTER TABLE `subtarea`
+  ADD CONSTRAINT `subtarea_ibfk_1` FOREIGN KEY (`id_tarea`) REFERENCES `tareas` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `tareas`

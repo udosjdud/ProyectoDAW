@@ -120,6 +120,7 @@ async function cargarDatos() {
         alert("Error de comunicación con el servidor: " + error.message);
     }
 }
+
 // Funcion para añadir una lista
 $("#add_ListForm").on("submit", function (e) {
 
@@ -154,7 +155,7 @@ $("#add_ListForm").on("submit", function (e) {
                 } else {
                     alert("Error al crear la lista: " + data.mensaje);
                 }
-
+                
                 $('#addListModal').modal('hide');
             })
 
@@ -201,6 +202,7 @@ $(document).on("click", ".add-card", function () {
     listaId = $(this).closest(".list").data("id");
 })
 
+// Funcion para añadir una tarea
 $("#add_TaskForm").on("submit", function (e) {
     e.preventDefault();
     const titulo = $("#titulo_tarea").val();
@@ -214,13 +216,18 @@ $("#add_TaskForm").on("submit", function (e) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log("card-container-" + listaId);
-            $("#card-container-" + listaId).append(`
-                <div class="card" id="card-${data.id}" data-bs-toggle="modal" data-bs-target="#tareaModal" data-id="${data.id}">
-                    <h4>${titulo}</h4>
+            if (data.tipo == 'success') {
+                $("#card-container-" + listaId).append(`
+                    <div class="card" id="card-${data.id}" data-bs-toggle="modal" data-bs-target="#tareaModal" data-id="${data.id}">
+                        <h4>${titulo}</h4>
                     <button class="delete-task-btn" title="Eliminar tarea"><i class="bi bi-trash"></i></button>
-                </div>
+                    </div>
                 `)
+            } else {
+                alert("Error al crear la tarea: " + data.mensaje);
+            }
+            $("#addTaskModal").modal('hide');
+            $("#titulo_tarea").val('');
         })
 })
 
@@ -281,12 +288,21 @@ $(document).on("click", "#btnGuardar_descripcion", function () {
         },
         body: "descripcion_tarea=" + descripcion_tarea + "&id_tarea=" + id_tarea + "&accion=descripcion"
     })
+        .then(response => response.json())
+        .then(data => {
+            if (data.tipo == 'success') {
+                $("#btnGuardar_descripcion").addClass('d-none');
+            } else {
+                alert("Error al actualizar la descripción: " + data.mensaje);
+            }
+        })
 })
 
 $("#descripcion_tarea").on("input", function () {
     $("#btnGuardar_descripcion").removeClass('d-none');
 });
 
+// Funcion para añadir una subtarea
 $(document).on("click", "#btnAñadir_subtarea", function (e) {
     e.preventDefault();
     const titulo_subtarea = $("#titulo_subtarea").val();
