@@ -55,7 +55,7 @@ async function cargarDatos() {
                 `);
             });
         });
-
+        /*
         activarDragAndDrop();
 
         function activarDragAndDrop() {
@@ -94,14 +94,49 @@ async function cargarDatos() {
                         alert('Error al actualizar el orden');
                     }
                 });
-        }
+        }*/
 
     } catch (error) {
         console.error('Error:', error);
         alert("Error de comunicación con el servidor: " + error.message);
     }
 }
+function activarDragAndDrop() {
+            document.querySelectorAll('.card-container').forEach(container => {
+                // Librería SortableJS para drag and drop
+                new Sortable(container, {
+                    group: 'tarjetas',
+                    animation: 150,
+                    onEnd: function (e) {
+                        const nuevaListaId = e.to.id.replace("card-container-", ""); // Obtener el ID de la nueva lista
+                        // Actulizamos el orden de las tareas
+                        actualizarOrden(nuevaListaId);
+                    }
+                });
+            });
+        }
+        function actualizarOrden(listaId) {
+            const cards = $(`#card-container-${listaId} .card`);    // Obtener todas las tarjetas de la lista
+            const orden = [];   // Array para almacenar el orden de las tarjetas
 
+            cards.each((index, card) => {
+                const id = $(card).attr('id').replace('card-', '');
+                orden.push({ id_tarea: id, posicion: index });  // Agregar el ID y la posición a la lista
+            });
+
+            fetch('../../server/tablero/actualizar_orden.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_lista: listaId, tareas: orden })  // Enviar las posiciones en formato JSON
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.tipo !== 'success') {
+                        console.error(data.mensaje);
+                        alert('Error al actualizar el orden');
+                    }
+                });
+        }
 // Funcion para añadir una lista
 $("#add_ListForm").on("submit", function (e) {
 
@@ -210,6 +245,7 @@ $("#add_TaskForm").on("submit", function (e) {
             $("#addTaskModal").modal('hide');
             $("#titulo_tarea").val('');
         })
+        activarDragAndDrop();
 })
 
 
