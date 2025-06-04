@@ -65,26 +65,7 @@ async function cargarDatos() {
                     group: 'tarjetas',
                     animation: 150,
                     onEnd: function (e) {
-                        const idTarea = e.item.id.replace("card-", ""); // Obtener el ID de la tarea
                         const nuevaListaId = e.to.id.replace("card-container-", ""); // Obtener el ID de la nueva lista
-
-                        fetch("../../server/tablero/mover_tarea.php", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded"
-                            },
-                            body: `id_tarea=${idTarea}&id_lista=${nuevaListaId}`
-                        })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.tipo !== 'success') {
-                                    alert("Error al mover la tarea: " + data.mensaje);
-                                }
-                            })
-                            .catch(err => {
-                                console.error("Error al mover la tarea:", err);
-                            });
-
                         // Actulizamos el orden de las tareas
                         actualizarOrden(nuevaListaId);
                     }
