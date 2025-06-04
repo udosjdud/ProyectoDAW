@@ -48,95 +48,59 @@ async function cargarDatos() {
             const container = $("#card-container-" + listaId);
             tareas.forEach(tarea => {
                 container.append(`
-                    <div class="card" id="card-${tarea.id}" data-bs-toggle="modal" data-bs-target="#tareaModal" data-id="${tarea.id}">
+                    <div class="card" id="card-${tarea.id}" data-id="${tarea.id}">
                         <h4>${tarea.titulo}</h4>
                         <button class="delete-task-btn" title="Eliminar tarea"><i class="bi bi-trash"></i></button>
                     </div>
                 `);
             });
         });
-        /*
+
         activarDragAndDrop();
-
-        function activarDragAndDrop() {
-            document.querySelectorAll('.card-container').forEach(container => {
-                // Librería SortableJS para drag and drop
-                new Sortable(container, {
-                    group: 'tarjetas',
-                    animation: 150,
-                    onEnd: function (e) {
-                        const nuevaListaId = e.to.id.replace("card-container-", ""); // Obtener el ID de la nueva lista
-                        // Actulizamos el orden de las tareas
-                        actualizarOrden(nuevaListaId);
-                    }
-                });
-            });
-        }
-
-        function actualizarOrden(listaId) {
-            const cards = $(`#card-container-${listaId} .card`);    // Obtener todas las tarjetas de la lista
-            const orden = [];   // Array para almacenar el orden de las tarjetas
-
-            cards.each((index, card) => {
-                const id = $(card).attr('id').replace('card-', '');
-                orden.push({ id_tarea: id, posicion: index });  // Agregar el ID y la posición a la lista
-            });
-
-            fetch('../../server/tablero/actualizar_orden.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id_lista: listaId, tareas: orden })  // Enviar las posiciones en formato JSON
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.tipo !== 'success') {
-                        console.error(data.mensaje);
-                        alert('Error al actualizar el orden');
-                    }
-                });
-        }*/
 
     } catch (error) {
         console.error('Error:', error);
         alert("Error de comunicación con el servidor: " + error.message);
     }
 }
+
 function activarDragAndDrop() {
-            document.querySelectorAll('.card-container').forEach(container => {
-                // Librería SortableJS para drag and drop
-                new Sortable(container, {
-                    group: 'tarjetas',
-                    animation: 150,
-                    onEnd: function (e) {
-                        const nuevaListaId = e.to.id.replace("card-container-", ""); // Obtener el ID de la nueva lista
-                        // Actulizamos el orden de las tareas
-                        actualizarOrden(nuevaListaId);
-                    }
-                });
-            });
-        }
-        function actualizarOrden(listaId) {
-            const cards = $(`#card-container-${listaId} .card`);    // Obtener todas las tarjetas de la lista
-            const orden = [];   // Array para almacenar el orden de las tarjetas
+    document.querySelectorAll('.card-container').forEach(container => {
+        // Librería SortableJS para drag and drop
+        new Sortable(container, {
+            group: 'tarjetas',
+            animation: 150,
+            onEnd: function (e) {
+                const nuevaListaId = e.to.id.replace("card-container-", ""); // Obtener el ID de la nueva lista
+                // Actulizamos el orden de las tareas
+                actualizarOrden(nuevaListaId);
+            }
+        });
+    });
+}
 
-            cards.each((index, card) => {
-                const id = $(card).attr('id').replace('card-', '');
-                orden.push({ id_tarea: id, posicion: index });  // Agregar el ID y la posición a la lista
-            });
+function actualizarOrden(listaId) {
+    const cards = $(`#card-container-${listaId} .card`);    // Obtener todas las tarjetas de la lista
+    const orden = [];   // Array para almacenar el orden de las tarjetas
 
-            fetch('../../server/tablero/actualizar_orden.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id_lista: listaId, tareas: orden })  // Enviar las posiciones en formato JSON
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.tipo !== 'success') {
-                        console.error(data.mensaje);
-                        alert('Error al actualizar el orden');
-                    }
-                });
-        }
+    cards.each((index, card) => {
+        const id = $(card).attr('id').replace('card-', '');
+        orden.push({ id_tarea: id, posicion: index });  // Agregar el ID y la posición a la lista
+    });
+
+    fetch('../../server/tablero/actualizar_orden.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_lista: listaId, tareas: orden })  // Enviar las posiciones en formato JSON
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.tipo !== 'success') {
+                console.error(data.mensaje);
+                alert('Error al actualizar el orden');
+            }
+        });
+}
 // Funcion para añadir una lista
 $("#add_ListForm").on("submit", function (e) {
 
@@ -171,7 +135,7 @@ $("#add_ListForm").on("submit", function (e) {
                 } else {
                     alert("Error al crear la lista: " + data.mensaje);
                 }
-                
+
                 $('#addListModal').modal('hide');
             })
 
@@ -234,9 +198,9 @@ $("#add_TaskForm").on("submit", function (e) {
         .then(data => {
             if (data.tipo == 'success') {
                 $("#card-container-" + listaId).append(`
-                    <div class="card" id="card-${data.id}" data-bs-toggle="modal" data-bs-target="#tareaModal" data-id="${data.id}">
+                    <div class="card" id="card-${data.id}" data-id="${data.id}">
                         <h4>${titulo}</h4>
-                    <button class="delete-task-btn" title="Eliminar tarea"><i class="bi bi-trash"></i></button>
+                        <button class="delete-task-btn" title="Eliminar tarea"><i class="bi bi-trash"></i></button>
                     </div>
                 `)
             } else {
@@ -245,13 +209,43 @@ $("#add_TaskForm").on("submit", function (e) {
             $("#addTaskModal").modal('hide');
             $("#titulo_tarea").val('');
         })
-        activarDragAndDrop();
+    activarDragAndDrop();
 })
 
+// Funcion para eliminar una tarea
+$(document).on("click", ".delete-task-btn", function (e) {
+    e.preventDefault(); // Prevenir comportamiento por defecto
+    
+    const confirmacion = confirm("¿Estás seguro de que deseas eliminar esta tarea?");
+    if (!confirmacion) {
+        return; // Si no confirma, no hacer nada
+    }
+    
+    const id_tarea = $(this).closest(".card").data('id');
 
-/* TODAS LAS FUNCIONES PARA EL MODAL DE LAS TAREAS */
+    fetch("../../server/tablero/eliminar_tarea.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "id_tarea=" + id_tarea
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.tipo == 'success') {
+                $("#card-" + id_tarea).remove();
+            } else {
+                alert("Error al eliminar la tarea: " + data.mensaje);
+            }
+        })
+        .catch(error => {
+            console.error("Error al eliminar la tarea:", error);
+            alert("Error de comunicación con el servidor: " + error.message);
+        });
+})
 
-$(document).on("click", ".card", function () {
+// Funcion para cargar los datos de la tarea (manejar clic en tarjeta manualmente)
+$(document).on("click", ".card", function (e) {
     const taskTitle = $(this).find('h4').text();
     $('#tareaModalLabel').text(taskTitle);
     const id_tarea = $(this).data('id');
@@ -269,7 +263,26 @@ $(document).on("click", ".card", function () {
         .then(response => response.json())
         .then(data => {
             if (data.tipo == 'success') {
+                console.log(data);
                 $("#descripcion_tarea").val(data.data.tarea.descripcion);
+                $("#fecha_vencimiento").val("");
+                $("#fecha_vencimiento_info").text("Opcional: establece una fecha de vencimiento");
+                // Si la tarea tiene fecha de vencimiento, se muestra en el input y se calcula la diferencia de días
+                if (data.data.tarea.fecha_vencimiento != null) {
+                    $("#fecha_vencimiento").val(data.data.tarea.fecha_vencimiento);
+                    const hoy = new Date();
+                    const hoy_formateado = hoy.toISOString().split('T')[0];
+                    const diferencia = dateDiffInDays(new Date(hoy_formateado), new Date(data.data.tarea.fecha_vencimiento));
+
+                    if (diferencia > 0) {
+                        $("#fecha_vencimiento_info").text("Te quedan " + diferencia + " día/s para completar la tarea");
+                    } else if (diferencia == 0) {
+                        $("#fecha_vencimiento_info").text("La tarea vence mañana");
+                    } else {
+                        $("#fecha_vencimiento_info").text("La tarea ya está vencida");
+                    }
+                }
+
                 $("#subtareas-list").empty();
                 for (subtarea of data.data.subtareas) {
                     $("#subtareas-list").append(`
@@ -286,6 +299,9 @@ $(document).on("click", ".card", function () {
                     </div>
                 `)
                 }
+                
+                // Abrir el modal manualmente
+                $('#tareaModal').modal('show');
             } else {
                 alert("Error al cargar los datos de la tarea: " + data.mensaje);
             }
@@ -369,6 +385,45 @@ $(document).on("change", ".task-check-input", function () {
     })
 })
 
+
+$(document).on("input", "#fecha_vencimiento", function () {
+    const fecha_vencimiento = $(this).val();
+    const id_tarea = $("#tareaModal").data("id");
+
+    fetch("../../server/tablero/modal_tarea.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "fecha_vencimiento=" + fecha_vencimiento + "&id_tarea=" + id_tarea + "&accion=fechaVencimiento"
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.tipo == 'success') {
+                const hoy = new Date();
+                const hoy_formateado = hoy.toISOString().split('T')[0];
+                const diferencia = dateDiffInDays(new Date(hoy_formateado), new Date(fecha_vencimiento));
+                if (diferencia > 0) {
+                    $("#fecha_vencimiento_info").text("Te quedan " + diferencia + " día/s para completar la tarea");
+                } else if (diferencia == 0) {
+                    $("#fecha_vencimiento_info").text("La tarea vence mañana");
+                } else {
+                    $("#fecha_vencimiento_info").text("La tarea ya está vencida");
+                }
+            } else {
+                alert("Error al actualizar la fecha de vencimiento: " + data.mensaje);
+            }
+        })
+})
+
+function dateDiffInDays(a, b) {
+    const milis_por_dia = 1000 * 60 * 60 * 24;
+    // Discard the time and time-zone information.
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+    return Math.floor((utc2 - utc1) / milis_por_dia);
+}
 
 // Funcion para arrastrar entre listas
 var isDown = false;

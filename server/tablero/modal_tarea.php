@@ -107,6 +107,25 @@ try {
                 ]);
             }
         }
+
+        if ($accion == "fechaVencimiento") {
+            $fecha_vencimiento = $_POST['fecha_vencimiento'];
+            $cprep = $conexion->prepare("UPDATE tareas SET fecha_vencimiento = ? WHERE id = ?");
+            $cprep->bind_param("si", $fecha_vencimiento, $id_tarea);
+            try {
+                $cprep->execute();
+                $cprep->close();
+                echo json_encode([
+                    'tipo' => 'success',
+                    'mensaje' => 'Fecha de vencimiento actualizada correctamente'
+                ]);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'tipo' => 'error',
+                    'mensaje' => 'Error al actualizar la fecha de vencimiento'
+                ]);
+            }
+        }
     }
 
 

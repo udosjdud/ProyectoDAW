@@ -153,15 +153,15 @@
                             <div class="section-container">
                                 <div class="section-header">
                                     <i class="bi bi-calendar-event me-2"></i>
-                                    <h6 class="mb-0">Fecha límite</h6>
+                                    <h6 class="mb-0">Fecha de vencimiento</h6>
                                 </div>
                                 <div class="section-content">
                                     <div class="mb-3">
-                                        <input type="date" class="form-control date-input" id="fecha">
+                                        <input type="date" class="form-control date-input" id="fecha_vencimiento">
                                     </div>
                                     <div class="d-flex align-items-center text-muted">
                                         <i class="bi bi-clock me-2"></i>
-                                        <small>Opcional: establece una fecha límite</small>
+                                        <small id="fecha_vencimiento_info">Opcional: establece una fecha de vencimiento</small>
                                     </div>
                                 </div>
                             </div>
