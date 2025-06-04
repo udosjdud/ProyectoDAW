@@ -50,6 +50,7 @@
         </nav>
     </header>
 
+    <!-- Modal para añadir listas -->
     <div class="modal fade" id="addListModal" tabindex="-1" aria-labelledby="addListModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -73,6 +74,7 @@
         </div>
     </div>
 
+    <!-- Modal para añadir tareas -->
     <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -96,7 +98,9 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tareaModal" tabindex="-1" aria-labelledby="tareaModalLabel" aria-hidden="true">
+    <!-- Modal para las tareas -->
+    <div class="modal fade" id="tareaModal" tabindex="-1" aria-labelledby="tareaModalLabel" aria-hidden="true"
+        data-id="">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -117,9 +121,9 @@
                                     <h6 class="mb-0">Descripción</h6>
                                 </div>
                                 <div class="section-content">
-                                    <textarea class="form-control" id="descripcion" rows="4"
+                                    <textarea class="form-control" id="descripcion_tarea" rows="4"
                                         placeholder="Añade una descripción más detallada..."></textarea>
-                                    <button id="btnGuardar" class="btn btn-success btn-sm mt-3 d-none">
+                                    <button id="btnGuardar_descripcion" class="btn btn-success btn-sm mt-3 d-none">
                                         <i class="bi bi-check-lg me-1"></i>Guardar cambios
                                     </button>
                                 </div>
@@ -132,32 +136,10 @@
                                     <h6 class="mb-0">Subtareas</h6>
                                 </div>
                                 <div class="section-content">
-                                    <div class="subtareas-list">
-                                        <div class="subtarea-item">
-                                            <div class="d-flex align-items-center flex-grow-1">
-                                                <input class="form-check-input me-3" type="checkbox" id="subtarea1">
-                                                <label class="form-check-label flex-grow-1" for="subtarea1">
-                                                    Subtarea de ejemplo
-                                                </label>
-                                            </div>
-                                            <button class="btn btn-sm btn-outline-danger delete-subtarea">
-                                                <i class="bi bi-x-lg"></i>
-                                            </button>
-                                        </div>
-                                        <div class="subtarea-item">
-                                            <div class="d-flex align-items-center flex-grow-1">
-                                                <input class="form-check-input me-3" type="checkbox" id="subtarea2">
-                                                <label class="form-check-label flex-grow-1" for="subtarea2">
-                                                    Otra subtarea
-                                                </label>
-                                            </div>
-                                            <button class="btn btn-sm btn-outline-danger delete-subtarea">
-                                                <i class="bi bi-x-lg"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <button class="btn btn-outline-primary btn-sm w-100 mt-3 add-subtarea-btn">
+                                    <div class="subtareas-list" id="subtareas-list"></div>
+
+                                    <button class="btn btn-outline-primary btn-sm w-100 mt-3 add-subtarea-btn"
+                                        data-bs-toggle="modal" data-bs-target="#addSubtaskModal">
                                         <i class="bi bi-plus-lg me-2"></i>Añadir subtarea
                                     </button>
 
@@ -199,6 +181,32 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal para añadir subtareas -->
+    <div class="modal fade" id="addSubtaskModal" tabindex="-1" aria-labelledby="addSubtaskModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSubtaskModalLabel">Nueva Subtarea</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add_SubtaskForm">
+                        <div class="mb-3">
+                            <label for="titulo_subtarea" class="form-label">Título de la Subtarea</label>
+                            <input type="text" class="form-control" id="titulo_subtarea" maxlength="20" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#tareaModal">Cancelar</button>
+                    <button type="submit" form="add_SubtaskForm" class="btn btn-primary" id="btnAñadir_subtarea">Crear Subtarea</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <main>
         <div class="main">

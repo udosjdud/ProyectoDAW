@@ -399,7 +399,7 @@ h1 {
     box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
 }
 
-.subtarea-item .form-check-input {
+.subtarea-item .task-check-input {
     width: 18px;
     height: 18px;
     border: 2px solid #ced4da;
@@ -407,12 +407,7 @@ h1 {
     margin: 0;
 }
 
-.subtarea-item .form-check-input:checked {
-    background-color: #28a745;
-    border-color: #28a745;
-}
-
-.subtarea-item .form-check-label {
+.subtarea-item .task-check-label {
     font-size: 14px;
     font-weight: 500;
     color: #495057;
@@ -420,7 +415,7 @@ h1 {
     margin: 0;
 }
 
-.subtarea-item .form-check-input:checked + .form-check-label {
+.subtarea-item .task-check-input:checked + .task-check-label {
     color: #6c757d;
     text-decoration: line-through;
 }

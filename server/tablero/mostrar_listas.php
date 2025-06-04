@@ -18,6 +18,12 @@ try {
             'data' => $result->fetch_all(MYSQLI_ASSOC)
         ]);
         exit();
+    } else {
+        echo json_encode([
+            'tipo' => 'success',
+            'data' => []
+        ]);
+        exit();
     }
 
 } catch (Exception $e) {

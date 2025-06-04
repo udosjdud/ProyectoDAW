@@ -48,7 +48,7 @@ async function cargarDatos() {
             const container = $("#card-container-" + listaId);
             tareas.forEach(tarea => {
                 container.append(`
-                    <div class="card" id="card-${tarea.id}" data-bs-toggle="modal" data-bs-target="#tareaModal">
+                    <div class="card" id="card-${tarea.id}" data-bs-toggle="modal" data-bs-target="#tareaModal" data-id="${tarea.id}">
                         <h4>${tarea.titulo}</h4>
                         <button class="delete-task-btn" title="Eliminar tarea"><i class="bi bi-trash"></i></button>
                     </div>
@@ -114,7 +114,6 @@ async function cargarDatos() {
                     }
                 });
         }
-
 
     } catch (error) {
         console.error('Error:', error);
@@ -217,7 +216,7 @@ $("#add_TaskForm").on("submit", function (e) {
         .then(data => {
             console.log("card-container-" + listaId);
             $("#card-container-" + listaId).append(`
-                <div class="card" id="card-${data.id}" data-bs-toggle="modal" data-bs-target="#tareaModal">
+                <div class="card" id="card-${data.id}" data-bs-toggle="modal" data-bs-target="#tareaModal" data-id="${data.id}">
                     <h4>${titulo}</h4>
                     <button class="delete-task-btn" title="Eliminar tarea"><i class="bi bi-trash"></i></button>
                 </div>
@@ -225,16 +224,118 @@ $("#add_TaskForm").on("submit", function (e) {
         })
 })
 
-const descripcion = document.getElementById('descripcion');
-const btnGuardar = document.getElementById('btnGuardar');
 
-descripcion.addEventListener('input', () => {
-    if (descripcion.value.trim() !== '') {
-        btnGuardar.classList.remove('d-none');
-    } else {
-        btnGuardar.classList.add('d-none');
-    }
+/* TODAS LAS FUNCIONES PARA EL MODAL DE LAS TAREAS */
+
+$(document).on("click", ".card", function () {
+    const taskTitle = $(this).find('h4').text();
+    $('#tareaModalLabel').text(taskTitle);
+    const id_tarea = $(this).data('id');
+    $('#tareaModal').data('id', id_tarea);
+
+    $("#btnGuardar_descripcion").addClass('d-none');
+
+    fetch("../../server/tablero/modal_tarea.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "id_tarea=" + id_tarea + "&accion=cargarDatos"
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.tipo == 'success') {
+                $("#descripcion_tarea").val(data.data.tarea.descripcion);
+                $("#subtareas-list").empty();
+                for (subtarea of data.data.subtareas) {
+                    $("#subtareas-list").append(`
+                    <div class="subtarea-item" id="subtarea-${subtarea.id}">
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <input class="task-check-input me-3" type="checkbox" id="subtarea-${subtarea.id}" ${subtarea.completado == 1 ? 'checked' : ''}>
+                            <label class="task-check-label flex-grow-1" for="subtarea-${subtarea.id}">
+                                ${subtarea.titulo}
+                            </label>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger delete-subtarea">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                `)
+                }
+            } else {
+                alert("Error al cargar los datos de la tarea: " + data.mensaje);
+            }
+        })
+
 });
+
+// Funciones para descripcion de la tarea
+$(document).on("click", "#btnGuardar_descripcion", function () {
+    const descripcion_tarea = $("#descripcion_tarea").val();
+    const id_tarea = $("#tareaModal").data("id");
+
+    fetch("../../server/tablero/modal_tarea.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "descripcion_tarea=" + descripcion_tarea + "&id_tarea=" + id_tarea + "&accion=descripcion"
+    })
+})
+
+$("#descripcion_tarea").on("input", function () {
+    $("#btnGuardar_descripcion").removeClass('d-none');
+});
+
+$(document).on("click", "#btnAñadir_subtarea", function (e) {
+    e.preventDefault();
+    const titulo_subtarea = $("#titulo_subtarea").val();
+    const id_tarea = $("#tareaModal").data("id");
+
+    fetch("../../server/tablero/modal_tarea.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "titulo_subtarea=" + titulo_subtarea + "&id_tarea=" + id_tarea + "&accion=subtarea"
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.tipo == 'success') {
+                $("#subtareas-list").append(`
+                    <div class="subtarea-item" id="subtarea-${data.id_subTarea}">
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <input class="task-check-input me-3" type="checkbox" id="subtarea-${data.id_subTarea}">
+                            <label class="task-check-label flex-grow-1" for="subtarea-${data.id_subTarea}">
+                                ${titulo_subtarea}
+                            </label>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger delete-subtarea">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                `)
+            }
+
+            $("#titulo_subtarea").val('');
+            $("#addSubtaskModal").modal('hide');
+            $("#tareaModal").modal('show');
+        })
+})
+
+$(document).on("change", ".task-check-input", function () {
+    const id_subtarea = $(this).attr("id").replace("subtarea-", "");
+    const completado = $(this).prop("checked");
+
+    fetch("../../server/tablero/modal_tarea.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "id_subtarea=" + id_subtarea + "&completado=" + (completado ? 1 : 0) + "&accion=subTareaCompletado"
+    })
+})
+
 
 // Funcion para arrastrar entre listas
 var isDown = false;
@@ -262,8 +363,3 @@ board.on("mousemove", function (e) {
     var walk = (x - startX);
     board.scrollLeft(scrollLeft - walk);
 })
-
-$(document).on("click", ".card", function () {
-    const taskTitle = $(this).find('h4').text();
-    $('#tareaModalLabel').text(taskTitle);
-});
