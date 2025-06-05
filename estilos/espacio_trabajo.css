@@ -99,10 +99,128 @@ body {
     color: white;
 }
 
-/* Ajustes para el título */
+/* Título */
 .titulo-h1 {
     width: 100%;
     text-align: center;
+}
+
+/* Sección de acciones */
+.actions-section {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.section-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.action-buttons {
+    gap: 12px;
+}
+
+.btn-action {
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-action::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-action:hover::before {
+    left: 100%;
+}
+
+.btn-action i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-action:hover i {
+    transform: scale(1.2);
+}
+
+/* Botón de añadir */
+.btn-warning.btn-action {
+    background: linear-gradient(135deg, #ffc107, #ffb300);
+    border-color: #ffc107;
+    color: #000;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.btn-warning.btn-action:hover {
+    background: linear-gradient(135deg, #ffb300, #ff8f00);
+    border-color: #ffb300;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+}
+
+/* Botón de eliminar */
+.btn-outline-danger.btn-action {
+    background: rgba(220, 53, 69, 0.1);
+    border-color: #dc3545;
+    color: #dc3545;
+    backdrop-filter: blur(10px);
+}
+
+.btn-outline-danger.btn-action:hover {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    border-color: #dc3545;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+/* Responsive para botones */
+@media (max-width: 576px) {
+    .btn-action {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-action i {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.9rem;
+    }
 }
 
 /* Main content area */
@@ -114,112 +232,347 @@ main {
 
 .content-area {
     padding: 1.5rem;
-    border-radius: 0.25rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    min-height: 40%;
-    max-height: 80%;
-    background: whitesmoke;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    min-height: 35%;
+    max-height: 70%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     overflow-y: auto;
+    margin-top: 1rem;
 }
 
 .content-tables {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 25px;
     padding: 10px;
-    justify-content: flex-start;
 }
 
 .tabla {
-    width: 350px;
-    height: 150px;
-    background-color: white;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #fff, #f8f9fa);
+    border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    border-left: 4px solid #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    min-height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-grow: 1;
+}
+
+.tabla::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ffc107, #ffb300, #ff9800);
+    border-radius: 15px 15px 0 0;
 }
 
 .tabla:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    border-color: #ffc107;
+}
+
+.tabla:hover::before {
+    height: 6px;
+    background: linear-gradient(90deg, #ff9800, #ffc107, #ffb300);
 }
 
 .tabla h4 {
     margin: 0 0 15px 0;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2c3e50;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    position: relative;
+}
+
+.tabla h4::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #ffc107, #ffb300);
+    border-radius: 1px;
+    transition: width 0.3s ease;
+}
+
+.tabla:hover h4::after {
+    width: 60px;
 }
 
 .tabla p {
     margin: 0;
-    font-size: 0.85rem;
-    color: #666;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    line-height: 1.5;
 }
 
 .tabla::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 30px;
-    height: 30px;
-    background-color: #f8f9fa;
-    border-top-left-radius: 8px;
-    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+    display: none;
 }
 
-/* Media queries para responsive */
+.tabla:hover::after {
+    display: none;
+}
+
+.tabla-content {
+    flex-grow: 1;
+}
+
+.tabla-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 12px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    align-items: center;
+}
+
+.tabla:hover .tabla-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tabla-action-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.tabla-action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    transition: background 0.3s ease;
+    z-index: 1;
+}
+
+.tabla-action-btn i {
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    z-index: 2;
+    position: relative;
+}
+
+/* Botón de editar */
+.edit-btn {
+    color: #0d6efd;
+    border-color: rgba(13, 110, 253, 0.2);
+}
+
+.edit-btn:hover {
+    background: rgba(13, 110, 253, 0.1);
+    border-color: #0d6efd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.edit-btn:hover::before {
+    background: rgba(13, 110, 253, 0.1);
+}
+
+.edit-btn:hover i {
+    color: #0d6efd;
+    transform: scale(1.1);
+}
+
+/* Botón de eliminar */
+.delete-btn {
+    color: #dc3545;
+    border-color: rgba(220, 53, 69, 0.2);
+}
+
+.delete-btn:hover {
+    background: rgba(220, 53, 69, 0.1);
+    border-color: #dc3545;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.delete-btn:hover::before {
+    background: rgba(220, 53, 69, 0.1);
+}
+
+.delete-btn:hover i {
+    color: #dc3545;
+    transform: scale(1.1);
+}
+
+/* Responsive para pantallas grandes */
 @media (max-width: 1200px) {
-    .tabla {
-        width: 300px;
+    .content-tables {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
     }
 }
 
 @media (max-width: 992px) {
-    .tabla {
-        width: 280px;
+    .content-tables {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 18px;
+    }
+    
+    .actions-section {
+        padding: 1.25rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
     }
 }
 
 @media (max-width: 768px) {
     .content-tables {
-        justify-content: center;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 5px;
     }
     
     .tabla {
+        min-height: 140px;
+        padding: 20px;
+    }
+    
+    .tabla-actions {
+        opacity: 1;
+        transform: translateY(0);
+        margin-top: 10px;
+    }
+    
+    .tabla-action-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .tabla-action-btn i {
+        font-size: 0.9rem;
+    }
+    
+    .actions-section {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .action-buttons {
         width: 100%;
-        max-width: 450px;
+        justify-content: center;
+    }
+    
+    .btn-action {
+        flex: 1;
+        justify-content: center;
+        min-width: 120px;
     }
 }
 
 @media (max-width: 576px) {
     .tabla {
-        height: auto;
-        min-height: 150px;
+        min-height: 120px;
+        padding: 15px;
+    }
+    
+    .tabla h4 {
+        font-size: 1.1rem;
+    }
+    
+    .tabla p {
+        font-size: 0.85rem;
+    }
+    
+    .tabla-actions {
+        margin-top: 8px;
+        gap: 6px;
+    }
+    
+    .tabla-action-btn {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .tabla-action-btn i {
+        font-size: 0.85rem;
+    }
+    
+    .content-area {
+        padding: 1rem;
+        border-radius: 15px;
+    }
+    
+    .actions-section {
+        border-radius: 12px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-action {
+        width: 100%;
+        justify-content: center;
     }
 }
-/* Footer styles */
+
+/* Responsive para pantallas muy pequeñas */
+@media (max-width: 375px) {
+    .content-tables {
+        gap: 12px;
+    }
+    
+    .tabla {
+        padding: 12px;
+        min-height: 100px;
+    }
+    
+    .tabla h4 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
+    .tabla p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Footer */
 footer {
     position: relative;
     bottom: 0;
     z-index: 9999;
 }
 
-/* Responsive adjustments */
-/* Sidebar styles for mobile */
+/* Sidebar responsive */
 @media (max-width: 768px) {
     .titulo-h1 {
         width: 100%;

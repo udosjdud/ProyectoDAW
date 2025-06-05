@@ -248,17 +248,44 @@ h1 {
     flex-direction: row;
     justify-content: space-between;
     background: #fff;
+    border: 1px solid #dfe1e6;
     border-radius: 4px;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s;
+    position: relative;
+}
+
+/* Tarjeta con fecha de vencimiento próxima (1 día) */
+.card.vence-pronto {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.2);
+}
+
+/* Tarjeta vencida */
+.card.vencida {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
 }
 
 .card:hover {
+    background: #e4e6ea;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover específico para tarjetas con fechas de vencimiento */
+.card.vence-pronto:hover {
+    background-color: #ffecb3;
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.card.vencida:hover {
+    background-color: #f5c6cb;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
 }
 
 .card h4 {
@@ -272,7 +299,7 @@ h1 {
     scale: 0.9;
 }
 
-/* Diseño del modal completamente rediseñado */
+/* Diseño del modal */
 .modal-content {
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -341,7 +368,7 @@ h1 {
     padding: 1.5rem;
 }
 
-/* Textarea mejorado */
+/* Textarea */
 #descripcion {
     border: 2px solid #e9ecef;
     border-radius: 10px;
@@ -359,7 +386,7 @@ h1 {
     outline: none;
 }
 
-/* Input de fecha mejorado */
+/* Input de fecha */
 .date-input {
     border: 2px solid #e9ecef;
     border-radius: 10px;
@@ -484,7 +511,7 @@ h1 {
     border-top: 1px solid #e9ecef;
 }
 
-/* Responsive Design mejorado para layout de dos columnas */
+/* Responsive para layout de dos columnas */
 @media (max-width: 768px) {
     .modal-body {
         padding: 1.5rem;
@@ -577,7 +604,7 @@ h1 {
     }
 }
 
-/* Ajustar spacing en el layout de dos columnas */
+/* Ajustar espaciado en el layout de dos columnas */
 .modal-body .row.g-4 {
     margin-left: -1.5rem;
     margin-right: -1.5rem;

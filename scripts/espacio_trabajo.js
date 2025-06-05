@@ -23,8 +23,18 @@ function pintarTodasTablas() {
 
                     contentTables.append(`
                         <div class='tabla' data-espacio-id="${tablesData[i].id}" data-tabla-titulo="${tablesData[i].titulo}">
-                            <h4>${tablesData[i].titulo}</h4>
-                            <p>Fecha de creación: ${fechaFormateado}</p>
+                            <div class="tabla-content">
+                                <h4>${tablesData[i].titulo}</h4>
+                                <p>Fecha de creación: ${fechaFormateado}</p>
+                            </div>
+                            <div class="tabla-actions">
+                                <button class="tabla-action-btn edit-btn" title="Editar tablero" data-id="${tablesData[i].id}">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="tabla-action-btn delete-btn" title="Eliminar tablero" data-id="${tablesData[i].id}">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </div>
                         </div>
                     `)
                 }
@@ -55,7 +65,13 @@ $("#compartidos").click(function () {
 });
 
 // Función para mandar por POST las variables importantes del tablero
-$(document).on("click", ".tabla", function () {
+$(document).on("click", ".tabla", function (e) {
+    // Prevenir la navegación si se hizo click en un botón de acción
+    if ($(e.target).closest('.tabla-action-btn').length > 0) {
+        e.stopPropagation();
+        return;
+    }
+    
     var id_espacio = $(this).data("espacio-id");
     var titulo_tabla =$(this).data("tabla-titulo");
 
@@ -81,6 +97,26 @@ $(document).on("click", ".tabla", function () {
 
 });
 
+// Eventos para los botones de acción (prevenir propagación del click)
+$(document).on("click", ".tabla-action-btn", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+});
+
+// Placeholder para funciones futuras de editar y eliminar
+$(document).on("click", ".edit-btn", function (e) {
+    e.stopPropagation();
+    const tableId = $(this).data('id');
+    console.log('Editar tablero con ID:', tableId);
+    // Aquí irá la función de editar
+});
+
+$(document).on("click", ".delete-btn", function (e) {
+    e.stopPropagation();
+    const tableId = $(this).data('id');
+    console.log('Eliminar tablero con ID:', tableId);
+    // Aquí irá la función de eliminar
+});
 
 $("#add_tabla_form").on("submit", function (e) {
     e.preventDefault(); // Evitar que el formulario recargue la página
@@ -103,8 +139,18 @@ $("#add_tabla_form").on("submit", function (e) {
                 const fechaFormateado = fecha.toISOString().split('T')[0];
                 $(".content-tables").append(`
                     <div class='tabla' data-espacio-id="${data.id}" data-tabla-titulo="${tituloTabla}">
-                        <h4>${tituloTabla}</h4>
-                        <p>Fecha de creación: ${fechaFormateado}</p> 
+                        <div class="tabla-content">
+                            <h4>${tituloTabla}</h4>
+                            <p>Fecha de creación: ${fechaFormateado}</p>
+                        </div>
+                        <div class="tabla-actions">
+                            <button class="tabla-action-btn edit-btn" title="Editar tablero" data-id="${data.id}">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="tabla-action-btn delete-btn" title="Eliminar tablero" data-id="${data.id}">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </div>
                     </div>
                     `);
                 $("#addTableModal").modal('hide'); // Cerrar el modal
@@ -118,7 +164,6 @@ $("#add_tabla_form").on("submit", function (e) {
             alert("Error de comunicación con el servidor: " + error.message);
         });
 });
-
 
 // Funcion para abrir el menú lateral en pantallas pequeñas
 if (window.innerWidth < 768) {

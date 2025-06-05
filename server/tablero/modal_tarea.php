@@ -8,9 +8,15 @@ try {
 
     if (isset($_POST['id_tarea']) || isset($_POST['id_subtarea'])) {
 
-        $id_tarea = $_POST['id_tarea'];
+        if (isset($_POST['id_tarea'])) {
+            $id_tarea = $_POST['id_tarea'];
+        }
+        if (isset($_POST['id_subtarea'])) {
+            $id_subtarea = $_POST['id_subtarea'];
+        }
         $accion = $_POST['accion'];
 
+        // Cargar datos de la tarea
         if ($accion == "cargarDatos") {
             $cprep = $conexion->prepare("SELECT * FROM tareas WHERE id = ?");
             $cprep->bind_param("i", $id_tarea);
@@ -47,6 +53,7 @@ try {
             }
         }
 
+        // Actualizar descripción de la tarea
         if ($accion == "descripcion") {
             $descripcion_tarea = $_POST['descripcion_tarea'];
             $cprep = $conexion->prepare("UPDATE tareas SET descripcion = ? WHERE id = ?");
@@ -67,6 +74,7 @@ try {
             }
         }
 
+        // Crear subtarea
         if ($accion == "subtarea") {
             $titulo_subtarea = $_POST['titulo_subtarea'];
             $cprep = $conexion->prepare("INSERT INTO subtarea (titulo, id_tarea) VALUES (?, ?)");
@@ -88,9 +96,9 @@ try {
             }
         }
 
+        // Actualizar estado de la subtarea
         if ($accion == "subTareaCompletado") {
             $completado = $_POST['completado'];
-            $id_subtarea = $_POST['id_subtarea'];
             $cprep = $conexion->prepare("UPDATE subtarea SET completado = ? WHERE id = ?");
             $cprep->bind_param("ii", $completado, $id_subtarea);
             try {
@@ -108,6 +116,26 @@ try {
             }
         }
 
+        // Eliminar subtarea
+        if ($accion == "eliminarSubtarea") {
+            $cprep = $conexion->prepare("DELETE FROM subtarea WHERE id = ?");
+            $cprep->bind_param("i", $id_subtarea);
+            try {
+                $cprep->execute();
+                $cprep->close();
+                echo json_encode([
+                    'tipo' => 'success',
+                    'mensaje' => 'Subtarea eliminada correctamente'
+                ]);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'tipo' => 'error',
+                    'mensaje' => 'Error al eliminar la subtarea'
+                ]);
+            }
+        }
+
+        // Actualizar fecha de vencimiento de la tarea
         if ($accion == "fechaVencimiento") {
             $fecha_vencimiento = $_POST['fecha_vencimiento'];
             $cprep = $conexion->prepare("UPDATE tareas SET fecha_vencimiento = ? WHERE id = ?");
@@ -126,6 +154,7 @@ try {
                 ]);
             }
         }
+
     }
 
 

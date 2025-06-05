@@ -56,11 +56,23 @@
                     </div>
                 </div>
 
-                <!-- Botón para abrir el modal que irá el formulario para agregar una tabla -->
-                <div class="content-add-button">
-                    <button class="btn btn-warning mb-3 btn-add-form" id="btn-add-form" data-bs-toggle="modal"
-                        data-bs-target="#addTableModal"> Añadir tabla </button>
+                <!-- Sección de acciones mejorada -->
+                <div class="actions-section mb-4">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                        <div class="action-title">
+                            <h2 class="section-title mb-0">Mis Tableros</h2>
+                            <p class="section-subtitle text-muted mb-0">Gestiona y organiza tus proyectos</p>
+                        </div>
+                        <div class="action-buttons d-flex gap-2 flex-wrap">
+                            <button class="btn btn-warning btn-action" id="btn-add-form" data-bs-toggle="modal"
+                                data-bs-target="#addTableModal" title="Añadir nuevo tablero">
+                                <i class="bi bi-plus-circle"></i>
+                                <span class="btn-text d-none d-sm-inline">Añadir Tablero</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
                 <!-- Modal para añadir tabla -->
                 <div class="modal fade" id="addTableModal" tabindex="-1" aria-labelledby="addTableModalLabel"
                     aria-hidden="true">
@@ -76,7 +88,7 @@
                                     <div class="mb-3">
                                         <label for="titulo" class="form-label">Título de la tabla: </label>
                                         <input type="text" class="form-control" id="titulo_tabla" name="titulo_tabla"
-                                            maxlength="30" required>
+                                            maxlength="30" pattern="[^<>]*" title="No se permiten los caracteres < y >" required>
                                     </div>
 
                                     <div class="content_btn mt-4 d-flex gap-2 justify-content-end">

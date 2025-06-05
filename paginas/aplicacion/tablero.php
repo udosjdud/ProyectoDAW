@@ -62,7 +62,8 @@
                     <form id="add_ListForm">
                         <div class="mb-3">
                             <label for="titulo_lista" class="form-label">Título de la Lista</label>
-                            <input type="text" class="form-control" id="titulo_lista" maxlength="20" required>
+                            <input type="text" class="form-control" id="titulo_lista" maxlength="20" 
+                                   pattern="[^<>]*" title="No se permiten los caracteres < y >" required>
                         </div>
                     </form>
                 </div>
@@ -86,7 +87,8 @@
                     <form id="add_TaskForm">
                         <div class="mb-3">
                             <label for="titulo_tarea" class="form-label">Título de la Tarea</label>
-                            <input type="text" class="form-control" id="titulo_tarea" maxlength="20" required>
+                            <input type="text" class="form-control" id="titulo_tarea" maxlength="20" 
+                                   pattern="[^<>]*" title="No se permiten los caracteres < y >" required>
                         </div>
                     </form>
                 </div>
@@ -195,7 +197,8 @@
                     <form id="add_SubtaskForm">
                         <div class="mb-3">
                             <label for="titulo_subtarea" class="form-label">Título de la Subtarea</label>
-                            <input type="text" class="form-control" id="titulo_subtarea" maxlength="20" required>
+                            <input type="text" class="form-control" id="titulo_subtarea" maxlength="20" 
+                                   pattern="[^<>]*" title="No se permiten los caracteres < y >" required>
                         </div>
                     </form>
                 </div>
@@ -207,6 +210,33 @@
         </div>
     </div>
 
+    <!-- Modal para editar lista -->
+    <div class="modal fade" id="editListModal" tabindex="-1" aria-labelledby="editListModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editListModalLabel">Editar Lista</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit_ListForm">
+                        <div class="mb-3">
+                            <label for="nuevo_titulo_lista" class="form-label">Nuevo Título de la Lista</label>
+                            <input type="text" class="form-control" id="nuevo_titulo_lista" maxlength="20" 
+                                   pattern="[^<>]*" title="No se permiten los caracteres < y >" required>
+                            <div class="form-text">Máximo 20 caracteres</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="edit_ListForm" class="btn btn-success">
+                        <i class="bi bi-check-lg me-1"></i>Guardar Cambios
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <main>
         <div class="main">

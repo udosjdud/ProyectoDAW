@@ -53,6 +53,10 @@ async function cargarDatos() {
                         <button class="delete-task-btn" title="Eliminar tarea"><i class="bi bi-trash"></i></button>
                     </div>
                 `);
+
+                // Aplicar color según fecha de vencimiento
+                const cardElement = $("#card-" + tarea.id);
+                aplicarColorFechaVencimiento(cardElement, tarea.fecha_vencimiento);
             });
         });
 
@@ -114,7 +118,7 @@ $("#add_ListForm").on("submit", function (e) {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: "titulo_lista=" + tituloLista
+            body: "titulo_lista=" + encodeURIComponent(tituloLista)
         })
             .then(response => response.json())
             .then(data => {
@@ -145,6 +149,55 @@ $("#add_ListForm").on("submit", function (e) {
     }
 
 })
+
+// Variable global para almacenar el ID de la lista que se está editando
+var listaEditandoId;
+
+// Función para abrir el modal de editar lista
+$(document).on("click", ".edit-list-btn", function () {
+    const listaElement = $(this).closest(".list");
+    listaEditandoId = listaElement.data("id");
+    const tituloActual = listaElement.find("h3").text();
+    
+    // Rellenar el modal con el título actual
+    $("#nuevo_titulo_lista").val(tituloActual);
+    $("#editListModal").modal('show');
+});
+
+// Función para guardar los cambios del nombre de la lista
+$("#edit_ListForm").on("submit", function (e) {
+    e.preventDefault();
+    
+    const nuevoTitulo = $("#nuevo_titulo_lista").val().trim();
+    
+    if (!nuevoTitulo) {
+        alert("El título no puede estar vacío");
+        return;
+    }
+    
+    fetch("../../server/tablero/cambiar_titulo_lista.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "id_lista=" + listaEditandoId + "&titulo_lista=" + encodeURIComponent(nuevoTitulo)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.tipo === 'success') {
+                // Actualizar el título en la interfaz
+                $("#lista-" + listaEditandoId + " h3").text(nuevoTitulo);
+                $("#editListModal").modal('hide');
+                $("#nuevo_titulo_lista").val('');
+            } else {
+                alert("Error al actualizar la lista: " + data.mensaje);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Error de comunicación con el servidor: " + error.message);
+        });
+});
 
 // Función para eliminar una lista
 $(document).on("click", ".delete-list-btn", function () {
@@ -215,12 +268,12 @@ $("#add_TaskForm").on("submit", function (e) {
 // Funcion para eliminar una tarea
 $(document).on("click", ".delete-task-btn", function (e) {
     e.preventDefault(); // Prevenir comportamiento por defecto
-    
+
     const confirmacion = confirm("¿Estás seguro de que deseas eliminar esta tarea?");
     if (!confirmacion) {
         return; // Si no confirma, no hacer nada
     }
-    
+
     const id_tarea = $(this).closest(".card").data('id');
 
     fetch("../../server/tablero/eliminar_tarea.php", {
@@ -299,7 +352,7 @@ $(document).on("click", ".card", function (e) {
                     </div>
                 `)
                 }
-                
+
                 // Abrir el modal manualmente
                 $('#tareaModal').modal('show');
             } else {
@@ -385,7 +438,7 @@ $(document).on("change", ".task-check-input", function () {
     })
 })
 
-
+// Funcion para actualizar la fecha de vencimiento de la tarea
 $(document).on("input", "#fecha_vencimiento", function () {
     const fecha_vencimiento = $(this).val();
     const id_tarea = $("#tareaModal").data("id");
@@ -410,6 +463,10 @@ $(document).on("input", "#fecha_vencimiento", function () {
                 } else {
                     $("#fecha_vencimiento_info").text("La tarea ya está vencida");
                 }
+
+                // Actualizar el color de la tarjeta en el tablero
+                const cardElement = $("#card-" + id_tarea);
+                aplicarColorFechaVencimiento(cardElement, fecha_vencimiento);
             } else {
                 alert("Error al actualizar la fecha de vencimiento: " + data.mensaje);
             }
@@ -424,6 +481,76 @@ function dateDiffInDays(a, b) {
 
     return Math.floor((utc2 - utc1) / milis_por_dia);
 }
+
+$(document).on("click", ".delete-subtarea", function () {
+    const id_subtarea = $(this).closest(".subtarea-item").attr("id").replace("subtarea-", "");
+
+    fetch("../../server/tablero/modal_tarea.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "id_subtarea=" + id_subtarea + "&accion=eliminarSubtarea"
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.tipo == 'success') {
+                $("#subtarea-" + id_subtarea).remove();
+            } else {
+                alert("Error al eliminar la subtarea: " + data.mensaje);
+            }
+        })
+
+})
+
+// Función para aplicar colores a las tarjetas según su fecha de vencimiento
+function aplicarColorFechaVencimiento(cardElement, fechaVencimiento) {
+    if (!fechaVencimiento) return;
+
+    const hoy = new Date();
+    const hoy_formateado = hoy.toISOString().split('T')[0];
+    const diferencia = dateDiffInDays(new Date(hoy_formateado), new Date(fechaVencimiento));
+
+    // Remover clases previas
+    cardElement.removeClass('vence-pronto vencida');
+
+    if (diferencia == 0) {
+        // Vence mañana (diferencia == 0)
+        cardElement.addClass('vence-pronto');
+    } else if (diferencia < 0) {
+        // Ya vencida (diferencia < 0)
+        cardElement.addClass('vencida');
+    }
+}
+
+// Función para actualizar los colores de todas las tarjetas
+async function actualizarColoresTarjetas() {
+    const tarjetas = $('.card');
+
+    for (let tarjeta of tarjetas) {
+        const id_tarea = $(tarjeta).data('id');
+        try {
+            const response = await fetch("../../server/tablero/modal_tarea.php", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: "id_tarea=" + id_tarea + "&accion=cargarDatos"
+            });
+            const data = await response.json();
+
+            if (data.tipo == 'success' && data.data.tarea.fecha_vencimiento) {
+                const cardElement = $("#card-" + id_tarea);
+                aplicarColorFechaVencimiento(cardElement, data.data.tarea.fecha_vencimiento);
+            }
+        } catch (error) {
+            console.error('Error al actualizar color de tarjeta:', error);
+        }
+    }
+}
+
+// Actualizar colores cada 30 minutos (1800000 ms)
+setInterval(actualizarColoresTarjetas, 1800000);
 
 // Funcion para arrastrar entre listas
 var isDown = false;
