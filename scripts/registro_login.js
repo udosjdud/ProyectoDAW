@@ -1,6 +1,7 @@
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const error = urlParams.get('error');
+    const correo = urlParams.get('correo'); // Correo que se ha introducido en el formulario del inicio
     const messageContainer = document.querySelector('.contenedor_mensaje');
 
     if (error) {
@@ -34,5 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         `;
+    }
+
+    if (correo) {
+        $("#correo").val(correo);
     }
 });

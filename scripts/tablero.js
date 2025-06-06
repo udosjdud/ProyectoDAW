@@ -140,6 +140,7 @@ $("#add_ListForm").on("submit", function (e) {
                     alert("Error al crear la lista: " + data.mensaje);
                 }
 
+                $("#titulo_lista").val('');
                 $('#addListModal').modal('hide');
             })
 
@@ -222,8 +223,11 @@ $(document).on("click", ".delete-list-btn", function () {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            $("#lista-" + listaId).remove()
+            if (data.tipo == 'success') {
+                $("#lista-" + listaId).remove()
+            } else {
+                alert("Error al eliminar la lista: " + data.mensaje);
+            }
         })
 
 });

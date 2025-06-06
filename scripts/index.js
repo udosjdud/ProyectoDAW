@@ -36,6 +36,11 @@ $(document).ready(function () {
     rellanarContenido(carta);
 });
 
+$("#form_registro_inicio").on("submit", function (e) {   
+    e.preventDefault();
+    window.location.href = "registro.html?correo=" + $("#correoInicio").val();
+})
+
 // Manejo de eventos de las tarjetas
 $(".tarjeta_presentacion").on("click", function (e) {
 

@@ -71,27 +71,27 @@ $(document).on("click", ".tabla", function (e) {
         e.stopPropagation();
         return;
     }
-    
+
     var id_espacio = $(this).data("espacio-id");
-    var titulo_tabla =$(this).data("tabla-titulo");
+    var titulo_tabla = $(this).data("tabla-titulo");
 
     const form = document.createElement("form");
     form.method = "POST";
     form.action = "tablero.php";
-    
+
     const campoID = document.createElement("input");
     campoID.type = "hidden";
     campoID.name = "id_espacio";
     campoID.value = id_espacio;
-    
+
     const campoTitulo = document.createElement("input");
     campoTitulo.type = "hidden";
     campoTitulo.name = "titulo_tabla";
     campoTitulo.value = titulo_tabla;
-    
+
     form.appendChild(campoID);
     form.appendChild(campoTitulo);
-    
+
     document.body.appendChild(form);
     form.submit();
 
@@ -103,19 +103,71 @@ $(document).on("click", ".tabla-action-btn", function (e) {
     e.preventDefault();
 });
 
-// Placeholder para funciones futuras de editar y eliminar
+// Función para abrir el modal de edición
 $(document).on("click", ".edit-btn", function (e) {
     e.stopPropagation();
     const tableId = $(this).data('id');
-    console.log('Editar tablero con ID:', tableId);
-    // Aquí irá la función de editar
+    const currentTitle = $(this).closest('.tabla').find('h4').text();
+    
+    // Establecer los valores en el modal
+    $("#edit_tabla_id").val(tableId);
+    $("#nuevo_titulo_tabla").val(currentTitle);
+    
+    // Mostrar el modal
+    $("#editTableModal").modal('show');
+});
+
+// Manejo del formulario de edición de tabla
+$("#edit_tabla_form").on("submit", function (e) {
+    e.preventDefault(); // Evitar que el formulario recargue la página
+
+    // Recoger datos del formulario
+    var nuevoTitulo = $("#nuevo_titulo_tabla").val();
+    var tablaId = $("#edit_tabla_id").val();
+
+    fetch('../../server/espacio_trabajo/acciones_tabla.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: "id_tabla=" + tablaId + "&accion=editar&titulo=" + encodeURIComponent(nuevoTitulo)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Respuesta del servidor: ", data.mensaje);
+            if (data.tipo == "success") {
+                pintarTodasTablas(); // Refrescar la lista de tablas
+                $("#editTableModal").modal('hide'); // Cerrar el modal
+                $("#nuevo_titulo_tabla").val(""); // Limpiar el campo
+            } else {
+                alert("Error al editar la tabla: " + data.mensaje);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Error de comunicación con el servidor: " + error.message);
+        });
 });
 
 $(document).on("click", ".delete-btn", function (e) {
     e.stopPropagation();
     const tableId = $(this).data('id');
-    console.log('Eliminar tablero con ID:', tableId);
-    // Aquí irá la función de eliminar
+    fetch("../../server/espacio_trabajo/acciones_tabla.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'id_tabla=' + tableId + '&accion=eliminar'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Respuesta del servidor: ", data.mensaje);
+            if (data.tipo == "success") {
+                pintarTodasTablas();
+            } else {
+                alert("Error al eliminar la tabla: " + data.mensaje);
+            }
+        })
 });
 
 $("#add_tabla_form").on("submit", function (e) {
@@ -164,6 +216,7 @@ $("#add_tabla_form").on("submit", function (e) {
             alert("Error de comunicación con el servidor: " + error.message);
         });
 });
+
 
 // Funcion para abrir el menú lateral en pantallas pequeñas
 if (window.innerWidth < 768) {

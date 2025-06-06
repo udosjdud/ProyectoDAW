@@ -88,13 +88,45 @@
                                     <div class="mb-3">
                                         <label for="titulo" class="form-label">Título de la tabla: </label>
                                         <input type="text" class="form-control" id="titulo_tabla" name="titulo_tabla"
-                                            maxlength="30" pattern="[^<>]*" title="No se permiten los caracteres < y >" required>
+                                            maxlength="30" pattern="[^<>]*" title="No se permiten los caracteres < y >"
+                                            required>
                                     </div>
 
                                     <div class="content_btn mt-4 d-flex gap-2 justify-content-end">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Cancelar</button>
                                         <button type="submit" class="btn btn-warning" id="btn_addTabla">Guardar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal para editar tabla -->
+                <div class="modal fade" id="editTableModal" tabindex="-1" aria-labelledby="editTableModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editTableModalLabel">Editar nombre de la tabla</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="edit_tabla_form" method="POST">
+                                    <div class="mb-3">
+                                        <label for="nuevo_titulo_tabla" class="form-label">Nuevo título de la tabla: </label>
+                                        <input type="text" class="form-control" id="nuevo_titulo_tabla" name="nuevo_titulo_tabla"
+                                            maxlength="30" pattern="[^<>]*" title="No se permiten los caracteres < y >"
+                                            required>
+                                    </div>
+                                    <input type="hidden" id="edit_tabla_id" name="edit_tabla_id">
+
+                                    <div class="content_btn mt-4 d-flex gap-2 justify-content-end">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-warning" id="btn_editTabla">Guardar cambios</button>
                                     </div>
                                 </form>
                             </div>
